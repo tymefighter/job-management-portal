@@ -49,6 +49,9 @@ app.route("/companies/:companyId")
 // update company of company whose id is companyId
 .put((req, res) => { 
 
+})
+.delete((req, res) => {
+
 });
 
 /** Jobs */
@@ -78,5 +81,8 @@ app.route("/companies/:companyId/jobs/:jobId")
 })
 // operation not supported
 .put((req, res) => { 
+
+})
+.delete((req, res) => {
 
 });

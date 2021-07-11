@@ -23,6 +23,21 @@ export interface Company {
     comments: Comment[]
 };
 
+export interface CompanyEdit {
+    id: string;
+    imgUrl?: string;
+    name?: string;
+    description?: string;
+};
+
+export interface JobEdit {
+    id: string;
+    name?: string;
+    description?: string;
+    salary?: number;
+    location?: string;
+};
+
 /** Guards */
 
 export function isJob(job: any): job is Job {
@@ -68,3 +83,14 @@ export function isCompany(company: any): company is Company {
     return true;
 }
 
+export function isCompanyEdit(companyEdit: any): companyEdit is CompanyEdit {
+    if(typeof companyEdit !== "object") return false;
+
+    return typeof companyEdit.id === "string";
+}
+
+export function isJobEdit(jobEdit: any): jobEdit is JobEdit {
+    if(typeof jobEdit !== "object") return false;
+
+    return typeof jobEdit.id === "string";
+}
