@@ -40,6 +40,8 @@ export function editCompany(
     if(company) {
         for(const prop of Object.getOwnPropertyNames(companyEdit) as PropType[])
             company[prop] = companyEdit[prop] as string;
+
+        writeDataToFile();
     }
 }
 
@@ -83,5 +85,7 @@ export function editJob(
     if(job) {
         for(const prop of Object.getOwnPropertyNames(jobEdit) as PropType[])
             (job as LooseType)[prop] = jobEdit[prop];
+
+        writeDataToFile();
     }
 }
