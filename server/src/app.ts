@@ -113,7 +113,30 @@ app.route("/companies/:companyId/jobs/:jobId")
 })
 .put((req, res) => {
     const jobEdit = req.body;
+
+    if(
+        data.editJob(
+            req.params.companyId,
+            req.params.jobId,
+            jobEdit
+        )
+    ) res.status(200).end();
+
+    else
+        res
+        .status(400)
+        .end("Update was not successful due to errors in request")
 })
 .delete((req, res) => {
+    if(
+        data.deleteJob(
+            req.params.companyId,
+            req.params.jobId
+        ) 
+    ) res.status(200).end();
 
+    else
+        res
+        .status(400)
+        .end("Deletion was not successful due to errors in request")
 });
