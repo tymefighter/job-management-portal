@@ -24,10 +24,15 @@ export async function addCompany(company: types.CompanyWithoutId) {
         body: JSON.stringify(company)
     });
 
-    const text = await response.text()
+    if(!response.ok) {
+        const text = await response.text()
+        return Promise.reject(text);
+    }
 
-    if(!response.ok) return Promise.reject(text);
-    else return text;
+    const companyReceived = await response.json();
+
+    if(types.isCompany(companyReceived)) return companyReceived;
+    else Promise.reject("company does not have the correct type");
 }
 
 export async function fetchCompany(companyId: string) {
@@ -93,10 +98,15 @@ export async function addJob(companyId: string, job: types.JobWithoutId) {
         body: JSON.stringify(job)
     });
 
-    const text = await response.text()
+    if(!response.ok) {
+        const text = await response.text()
+        return Promise.reject(text);
+    }
 
-    if(!response.ok) return Promise.reject(text);
-    else return text;
+    const jobReceived = await response.json();
+
+    if(types.isJob(jobReceived)) return jobReceived;
+    else Promise.reject("job does not have the correct type");
 }
 
 export async function fetchJob(
