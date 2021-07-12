@@ -93,6 +93,7 @@ export function reducer(
         case "EDIT_JOB_FAILED":
         case "DELETE_JOB_FAILED":
             console.log("Failure Occurred:", action.type);
+            return state;
 
         default:
             return state;

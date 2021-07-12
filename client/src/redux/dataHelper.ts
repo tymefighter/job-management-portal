@@ -18,8 +18,11 @@ export function editElement<T extends {id: string}>(
     id: string,
     editValue: Partial<T>
 ) {
+    const value = arr.find(value => value.id === id);
+    if(value === undefined) return arr;
+
     const newValue = {
-        ...arr.find(value => value.id === id),
+        ...value,
         ...editValue
     };
 
@@ -40,7 +43,9 @@ export function addInnerElement<
     innerValue: any
 ): T[] {
     const value = arr.find(value => value.id === id);
-    const innerArr = value[innerProp];
+    if(value === undefined) return arr;
+
+    const innerArr = (value as any)[innerProp];
 
     if(innerArr instanceof Array) {
         const newInnerArr = innerArr.concat(innerValue);
@@ -60,8 +65,10 @@ export function deleteInnerElement<
     innerProp: string,
     innerId: string
 ): T[] {
-    const value = arr.find(value => value.id === id);
-    const innerArr = value[innerProp];
+    const value: any = arr.find(value => value.id === id);
+    if(value === undefined) return arr;
+    
+    const innerArr = (value as any)[innerProp];
 
     if(innerArr instanceof Array) {
         const newInnerArr = deleteElement(innerArr, innerId);
@@ -82,8 +89,10 @@ export function editInnerElement<
     innerId: string,
     innerValue: any
 ): T[] {
-    const value = arr.find(value => value.id === id);
-    const innerArr = value[innerProp];
+    const value: any = arr.find(value => value.id === id);
+    if(value === undefined) return arr;
+    
+    const innerArr = (value as any)[innerProp];
 
     if(innerArr instanceof Array) {
         const newInnerArr = editElement(innerArr, innerId, innerValue);
