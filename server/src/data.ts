@@ -29,10 +29,14 @@ export function getCompanies(): types.Company[] {
     return data;
 }
 
-export function addCompany(company: types.CompanyWithoutId) {
+export function addCompany(company: types.CompanyWithoutId): types.Company {
     const id = computeCompanyId();
-    data.push({id, ...company});
+    const newCompany = {id, ...company};
+
+    data.push(newCompany);
     writeDataToFile();
+
+    return newCompany;
 }
 
 export function getCompany(companyId: string): types.Company | undefined {
@@ -70,17 +74,23 @@ export function getJobs(companyId: string): types.Job[] | undefined {
     return getCompany(companyId) ?. jobs;
 }
 
-export function addJob(companyId: string, job: types.JobWithoutId): Boolean {
+export function addJob(
+    companyId: string, 
+    job: types.JobWithoutId
+): types.Job | undefined {
     const company = getCompany(companyId);
 
     if(company) {
         const id = computeJobId();
-        company.jobs.push({id, ...job});
+        const newJob = {id, ...job};
+
+        company.jobs.push(newJob);
         writeDataToFile();
-        return true;
+        
+        return newJob;
     }
 
-    return false;
+    return undefined;
 }
 
 export function getJob(companyId: string, jobId: string): types.Job | undefined {

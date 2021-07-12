@@ -23,8 +23,8 @@ app.route("/companies")
 .post((req, res) => { 
     const companyWithoutId = req.body;
     if(types.isCompanyWithoutId(companyWithoutId)) {
-        data.addCompany(companyWithoutId);
-        res.status(200).end();
+        const company = data.addCompany(companyWithoutId);
+        res.status(200).json(company);
     }
     else 
         res
@@ -85,11 +85,13 @@ app.route("/companies/:companyId/jobs")
 // add a new job to company having id as companyId
 .post((req, res) => {
     const jobWithoutId = req.body;
+    let job;
+
     if(
         types.isJobWithoutId(jobWithoutId)
-        && data.addJob(req.params.companyId, jobWithoutId)
+        && (job = data.addJob(req.params.companyId, jobWithoutId))
     )
-        res.status(200).end();
+        res.status(200).json(job);
 
     else 
         res
