@@ -25,15 +25,19 @@ export function getCompany(companyId: string): types.Company | undefined {
     return data.find(company => company.id === companyId);
 }
 
-export function deleteCompany(companyId: string) {
+export function deleteCompany(companyId: string): Boolean {
+    const prevLength = data.length;
     data = data.filter(company => company.id !== companyId);
     writeDataToFile();
+
+    return data.length < prevLength;
 }
 
 export function editCompany(
+    companyId: string,
     companyEdit: types.CompanyEdit
-) {
-    const company = getCompany(companyEdit.id);
+): Boolean {
+    const company = getCompany(companyId);
 
     type PropType = keyof types.CompanyEdit;
 
@@ -42,20 +46,26 @@ export function editCompany(
             company[prop] = companyEdit[prop] as string;
 
         writeDataToFile();
+        return true;
     }
+
+    return false;
 }
 
 export function getJobs(companyId: string): types.Job[] | undefined {
     return getCompany(companyId) ?. jobs;
 }
 
-export function addJob(companyId: string, job: types.Job) {
+export function addJob(companyId: string, job: types.Job): Boolean {
     const company = getCompany(companyId);
 
     if(company) {
         company.jobs.push(job);
         writeDataToFile();
+        return true;
     }
+
+    return false;
 }
 
 export function getJob(companyId: string, jobId: string): types.Job | undefined {
@@ -64,20 +74,24 @@ export function getJob(companyId: string, jobId: string): types.Job | undefined 
         ?. find(job => job.id === jobId); 
 }
 
-export function deleteJob(companyId: string, jobId: string) {
+export function deleteJob(companyId: string, jobId: string): Boolean {
     const company = getCompany(companyId);
 
     if(company) {
         company.jobs = company.jobs.filter(job => job.id !== jobId);
         writeDataToFile();
+        return true;
     }
+
+    return false;
 }
 
 export function editJob(
     companyId: string, 
+    jobId: string,
     jobEdit: types.JobEdit
-) {
-    const job = getJob(companyId, jobEdit.id);
+): Boolean {
+    const job = getJob(companyId, jobId);
 
     type PropType = keyof types.JobEdit;
     type LooseType = {[prop: string]: any};
@@ -87,5 +101,8 @@ export function editJob(
             (job as LooseType)[prop] = jobEdit[prop];
 
         writeDataToFile();
+        return true;
     }
+
+    return false;
 }

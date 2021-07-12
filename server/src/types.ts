@@ -24,14 +24,12 @@ export interface Company {
 };
 
 export interface CompanyEdit {
-    id: string;
     imgUrl?: string;
     name?: string;
     description?: string;
 };
 
 export interface JobEdit {
-    id: string;
     name?: string;
     description?: string;
     salary?: number;
@@ -83,14 +81,50 @@ export function isCompany(company: any): company is Company {
     return true;
 }
 
+interface AllowedPropsCompanyEditType {
+    [key: string]: string | undefined;
+    imgUrl: string;
+    name: string;
+    description: string;
+};
+
+const ALLOWED_PROPS_COMPANY_EDIT: AllowedPropsCompanyEditType = {
+    imgUrl: "string", 
+    name: "string", 
+    description: "string"
+};
+
 export function isCompanyEdit(companyEdit: any): companyEdit is CompanyEdit {
     if(typeof companyEdit !== "object") return false;
 
-    return typeof companyEdit.id === "string";
+    for(const prop of Object.getOwnPropertyNames(companyEdit))
+        if(typeof companyEdit[prop] === ALLOWED_PROPS_COMPANY_EDIT[prop]) 
+            return false;
+    
+    return true;
 }
+
+interface AllowedPropsJobEditType {
+    [key: string]: string | undefined;
+    name: string;
+    description: string;
+    salary: string;
+    location: string;
+};
+
+const ALLOWED_PROPS_JOB_EDIT: AllowedPropsJobEditType = {
+    name: "string",
+    description: "string",
+    salary: "number",
+    location: "string",
+};
 
 export function isJobEdit(jobEdit: any): jobEdit is JobEdit {
     if(typeof jobEdit !== "object") return false;
 
-    return typeof jobEdit.id === "string";
+    for(const prop of Object.getOwnPropertyNames(jobEdit))
+        if(typeof jobEdit[prop] === ALLOWED_PROPS_JOB_EDIT[prop]) 
+            return false;
+    
+    return true;
 }
