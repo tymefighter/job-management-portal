@@ -130,3 +130,16 @@ export async function editJob(
     if(!response.ok) return Promise.reject(text);
     else return text;
 }
+
+export async function deleteJob(
+    companyId: string, jobId: string
+) {
+    const response = await fetch(baseUrl + `/companies/${companyId}/jobs/${jobId}`, {
+        method: "DELETE"
+    });
+
+    const text = await response.text()
+
+    if(!response.ok) return Promise.reject(text);
+    else return text;
+}
