@@ -9,6 +9,10 @@ export function deleteElement<T extends {id: string}>(
     return arr.filter(value => value.id !== id);
 }
 
+/**
+ * Edits an element, but does NOT ensure whether
+ * the initial order of elements will be preserved
+ */
 export function editElement<T extends {id: string}>(
     arr: T[],
     id: string,
@@ -23,6 +27,10 @@ export function editElement<T extends {id: string}>(
     return addElement(rmArr, newValue);
 }
 
+/**
+ * Edits inner element, but does NOT ensure whether
+ * the initial order of elements will be preserved
+ */
 export function addInnerElement<
     T extends {id: string}
 >(
