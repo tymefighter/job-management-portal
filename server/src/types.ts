@@ -8,6 +8,8 @@ export interface Job {
     location: string;
 };
 
+export type JobWithoutId = Omit<Job, "id">;
+
 export interface Comment {
     id: string;
     comment: string;
@@ -22,6 +24,8 @@ export interface Company {
     jobs: Job[];
     comments: Comment[]
 };
+
+export type CompanyWithoutId = Omit<Company, "id">;
 
 export interface CompanyEdit {
     imgUrl?: string;
@@ -38,16 +42,24 @@ export interface JobEdit {
 
 /** Guards */
 
-export function isJob(job: any): job is Job {
+function hasJobProps(job: any) {
     if(typeof job !== "object") return false;
 
     return (
-        typeof job.id === "string"
-        && job.name === "string"
-        && job.description === "string"
-        && job.salary === "number"
-        && job.location === "string"
+        typeof job.name === "string"
+        && typeof job.description === "string"
+        && typeof job.salary === "number"
+        && typeof job.location === "string"
     );
+}
+
+export function isJob(job: any): job is Job {
+    return hasJobProps(job)
+        && typeof job.id === "string";
+}
+
+export function isJobWithoutId(job: any): job is Job {
+    return hasJobProps(job);
 }
 
 export function isComment(comment: any): comment is Comment {
@@ -60,12 +72,11 @@ export function isComment(comment: any): comment is Comment {
     );
 }
 
-export function isCompany(company: any): company is Company {
+function hasCompanyProps(company: any) {
     if(typeof company !== "object") return false;
 
     if(
-        typeof company.id !== "string" 
-        || typeof company.imgUrl !== "string"
+        typeof company.imgUrl !== "string"
         || typeof company.name !== "string"
         || typeof company.description !== "string"
         || !(company.jobs instanceof Array)
@@ -79,6 +90,15 @@ export function isCompany(company: any): company is Company {
         if(!isComment(comment)) return false;
 
     return true;
+}
+
+export function isCompany(company: any): company is Company {
+    return hasCompanyProps(company)
+        && typeof company.id == "string";
+}
+
+export function isCompanyWithoutId(company: any): company is Company {
+    return hasCompanyProps(company);
 }
 
 interface AllowedPropsCompanyEditType {

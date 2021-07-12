@@ -3,10 +3,23 @@ import * as fs from "fs";
 
 /** Data */
 
-const DATA_PATH = "./data/companies.json";
+const DATA_PATH = "server/data/companies.json";
 let data = JSON.parse(fs.readFileSync(DATA_PATH, "utf-8")) as types.Company[];
 
 /** Helpers */
+
+function getCounter() {
+    let id = 0;
+
+    return function() {
+        const currId = id;
+        id ++;
+        return currId.toString();
+    }
+}
+
+const computeCompanyId = getCounter();
+const computeJobId = getCounter();
 
 function writeDataToFile() {
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), "utf-8");
@@ -16,8 +29,9 @@ export function getCompanies(): types.Company[] {
     return data;
 }
 
-export function addCompany(company: types.Company) {
-    data.push(company);
+export function addCompany(company: types.CompanyWithoutId) {
+    const id = computeCompanyId();
+    data.push({id, ...company});
     writeDataToFile();
 }
 
@@ -56,11 +70,12 @@ export function getJobs(companyId: string): types.Job[] | undefined {
     return getCompany(companyId) ?. jobs;
 }
 
-export function addJob(companyId: string, job: types.Job): Boolean {
+export function addJob(companyId: string, job: types.JobWithoutId): Boolean {
     const company = getCompany(companyId);
 
     if(company) {
-        company.jobs.push(job);
+        const id = computeJobId();
+        company.jobs.push({id, ...job});
         writeDataToFile();
         return true;
     }

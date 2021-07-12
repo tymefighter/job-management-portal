@@ -4,7 +4,9 @@
   "description": "A Job Management Application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "server && client",
+    "server": "tsc -p server && node ./server/build/app.js",
+    "client": ""
   },
   "repository": {
     "type": "git",

@@ -2,6 +2,8 @@ import * as express from "express";
 import * as types from "./types";
 import * as data from "./data";
 
+const PORT = 3000;
+
 // Get Express Application
 const app = express();
 
@@ -15,13 +17,13 @@ app.use(express.json());
 app.route("/companies")
 // get the list of companies
 .get((req, res) => { 
-    res.status(200).json(data);
+    res.status(200).json(data.getCompanies());
 })
 // add a new company
 .post((req, res) => { 
-    const company = req.body;
-    if(types.isCompany(company)) {
-        data.addCompany(company);
+    const companyWithoutId = req.body;
+    if(types.isCompanyWithoutId(companyWithoutId)) {
+        data.addCompany(companyWithoutId);
         res.status(200).end();
     }
     else 
@@ -82,10 +84,10 @@ app.route("/companies/:companyId/jobs")
 })
 // add a new job to company having id as companyId
 .post((req, res) => {
-    const job = req.body;
+    const jobWithoutId = req.body;
     if(
-        types.isJob(job)
-        && data.addJob(req.params.companyId, job)
+        types.isJobWithoutId(jobWithoutId)
+        && data.addJob(req.params.companyId, jobWithoutId)
     )
         res.status(200).end();
 
@@ -139,4 +141,8 @@ app.route("/companies/:companyId/jobs/:jobId")
         res
         .status(400)
         .end("Deletion was not successful due to errors in request")
+});
+
+app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT}`);
 });
