@@ -30,8 +30,17 @@ export function deleteCompany(companyId: string) {
     writeDataToFile();
 }
 
-export function editCompany(companyId: string, companyEdit: types.CompanyEdit) {
+export function editCompany(
+    companyEdit: types.CompanyEdit
+) {
+    const company = getCompany(companyEdit.id);
 
+    type PropType = keyof types.CompanyEdit;
+
+    if(company) {
+        for(const prop of Object.getOwnPropertyNames(companyEdit) as PropType[])
+            company[prop] = companyEdit[prop] as string;
+    }
 }
 
 export function getJobs(companyId: string): types.Job[] | undefined {
@@ -64,8 +73,15 @@ export function deleteJob(companyId: string, jobId: string) {
 
 export function editJob(
     companyId: string, 
-    jobId: string,
     jobEdit: types.JobEdit
 ) {
+    const job = getJob(companyId, jobEdit.id);
 
+    type PropType = keyof types.JobEdit;
+    type LooseType = {[prop: string]: any};
+
+    if(job) {
+        for(const prop of Object.getOwnPropertyNames(jobEdit) as PropType[])
+            (job as LooseType)[prop] = jobEdit[prop];
+    }
 }
