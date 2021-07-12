@@ -13,18 +13,6 @@ export function getCompaniesPassed(companies: types.Company[]): GetCompaniesPass
     };
 }
 
-interface AddCompany {
-    type: "ADD_COMPANY";
-    payload: types.CompanyWithoutId;
-};
-
-export function addCompany(company: types.CompanyWithoutId): AddCompany {
-    return {
-        type: "ADD_COMPANY",
-        payload: company
-    };
-}
-
 interface AddCompanyPassed {
     type: "ADD_COMPANY_PASSED";
     payload: types.Company;
@@ -36,24 +24,6 @@ export function addCompanyPassed(
     return {
         type: "ADD_COMPANY_PASSED",
         payload: company
-    };
-}
-
-interface EditCompany {
-    type: "EDIT_COMPANY";
-    payload: {
-        companyId: string;
-        companyEdit: types.CompanyEdit;
-    };
-};
-
-export function editCompany(
-    companyId: string, 
-    companyEdit: types.CompanyEdit
-): EditCompany {
-    return {
-        type: "EDIT_COMPANY",
-        payload: {companyId, companyEdit}
     };
 }
 
@@ -75,18 +45,6 @@ export function editCompanyPassed(
     };
 }
 
-interface DeleteCompany {
-    type: "DELETE_COMPANY";
-    payload: string;
-};
-
-export function deleteCompany(companyId: string): DeleteCompany {
-    return {
-        type: "DELETE_COMPANY",
-        payload: companyId
-    };
-}
-
 interface DeleteCompanyPassed {
     type: "DELETE_COMPANY_PASSED";
     payload: string;
@@ -96,21 +54,6 @@ export function deleteCompanyPassed(companyId: string): DeleteCompanyPassed {
     return {
         type: "DELETE_COMPANY_PASSED",
         payload: companyId
-    };
-}
-
-interface AddJob {
-    type: "ADD_JOB";
-    payload: {
-        companyId: string;
-        job: types.JobWithoutId;
-    };
-};
-
-export function addJob(companyId: string, job: types.JobWithoutId): AddJob {
-    return {
-        type: "ADD_JOB",
-        payload: {companyId, job}
     };
 }
 
@@ -131,25 +74,6 @@ export function addJobPassed(
     };
 }
 
-interface EditJob {
-    type: "EDIT_JOB";
-    payload: {
-        companyId: string;
-        jobId: string;
-        jobEdit: types.JobEdit
-    };
-};
-
-export function editJob(
-    companyId: string,
-    jobId: string,
-    jobEdit: types.JobEdit
-): EditJob {
-    return {
-        type: "EDIT_JOB",
-        payload: {companyId, jobId, jobEdit}
-    };
-}
 interface EditJobPassed {
     type: "EDIT_JOB_PASSED";
     payload: {
@@ -167,24 +91,6 @@ export function editJobPassed(
     return {
         type: "EDIT_JOB_PASSED",
         payload: {companyId, jobId, jobEdit}
-    };
-}
-
-interface DeleteJob {
-    type: "DELETE_JOB";
-    payload: {
-        companyId: string;
-        jobId: string;
-    };
-};
-
-export function deleteJob(
-    companyId: string,
-    jobId: string,
-): DeleteJob {
-    return {
-        type: "DELETE_JOB",
-        payload: {companyId, jobId}
     };
 }
 
@@ -207,12 +113,12 @@ export function deleteJobPassed(
 }
 
 type ActionWithPayload = GetCompaniesPassed 
-    | AddCompany | AddCompanyPassed
-    | EditCompany | EditCompanyPassed
-    | DeleteCompany | DeleteCompanyPassed
-    | AddJob | AddJobPassed
-    | EditJob | EditJobPassed
-    | DeleteJob | DeleteJobPassed;
+    | AddCompanyPassed
+    | EditCompanyPassed
+    | DeleteCompanyPassed
+    | AddJobPassed
+    | EditJobPassed
+    | DeleteJobPassed;
  
 interface ActionWithoutPayload {
     type: Exclude<ActionType, ActionWithPayload["type"]>

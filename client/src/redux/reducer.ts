@@ -1,4 +1,4 @@
-import { Action } from "./actionCreators";
+import { Action } from "./actionCreator";
 import * as types from "../types";
 import * as dataHelper from "./dataHelper";
 
