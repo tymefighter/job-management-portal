@@ -1,0 +1,17 @@
+.companies {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+@media screen and (max-width: 60rem) {
+    .companies {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 30rem) {
+    .companies {
+        grid-template-columns: 1fr;
+    }
+}

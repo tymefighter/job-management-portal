@@ -1,0 +1,19 @@
+.company-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-card__img {
+    height: 100%;
+    width: 100%;
+}
+
+.company-card__name {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.company-card__para {
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+}

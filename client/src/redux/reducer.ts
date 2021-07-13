@@ -4,13 +4,17 @@ import * as dataHelper from "./dataHelper";
 
 export type Theme = "DARK" | "LIGHT";
 
+export type LoadStatus = "NOT_LOADED" | "LOADING" | "LOADED";
+
 export interface StateType {
     companies: types.Company[],
+    companiesStatus: LoadStatus,
     theme: Theme
 };
 
 const initialState: StateType = {
     companies: [],
+    companiesStatus: "NOT_LOADED",
     theme: "DARK"
 };
 
@@ -20,8 +24,11 @@ export function reducer(
 ): StateType {
     
     switch(action.type) {
+        case "GET_COMPANIES":
+            return {...state, companiesStatus: "LOADING"};
+
         case "GET_COMPANIES_PASSED":
-            return {...state, companies: action.payload};
+            return {...state, companies: action.payload, companiesStatus: "LOADED"};
 
         case "ADD_COMPANY_PASSED":
             return {
