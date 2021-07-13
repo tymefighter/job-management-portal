@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import { LoadStatus, StateType } from "../redux/reducer";
 import * as types from "../types";
-import { useParams, useRouteMatch } from "react-router-dom";
+import * as thunk from "../redux/thunk";
 import { Link } from "react-router-dom";
 import JobItem from "./JobItem";
+import { useEffect } from "react";
 
 import  "../styles/CompanyJobs.scss";
 
@@ -14,32 +15,30 @@ function mapStateToProps(state: StateType) {
     };
 }
 
+const mapDispatchToProps = {
+    getCompanies: thunk.getCompanies
+};
+
 interface CompanyProps {
     status: LoadStatus;
     companies: types.Company[];
+    getCompanies: () => void
 }
 
-interface RouteParams {
-    companyId: string;
-    url: string;
-};
+function Jobs({status, companies, getCompanies}: CompanyProps) {
 
-function CompanyJobs({status, companies}: CompanyProps) {
-
-    const { url } = useRouteMatch();
-    const { companyId } = useParams<RouteParams>();
+    useEffect(() => {
+        if(status === "NOT_LOADED") getCompanies();
+    }, [status]);
 
     if(status !== "LOADED") return <div>{status}</div>;
 
-    const company = companies.find(company => company.id === companyId);
-    if(company === undefined) return <div>Invalid Company</div>
-
     return (
         <div className="company-jobs">
-            {company.jobs.map(job => {
+            {companies.flatMap(company => company.jobs.map(job => {
                 return (
-                    <Link key={job.id}
-                        className="job-item-link" to={`${url}/${job.id}`}>
+                    <Link key={`${company.id}-${job.id}`}
+                        className="job-item-link" to={`/company/${company.id}/jobs/${job.id}`}>
                         <JobItem 
                             companyName={company.name}
                             jobName={job.name}
@@ -47,9 +46,9 @@ function CompanyJobs({status, companies}: CompanyProps) {
                         />
                     </Link>
                 )
-            })}
+            }))}
         </div>
     );
 }
 
-export default connect(mapStateToProps)(CompanyJobs);
+export default connect(mapStateToProps, mapDispatchToProps)(Jobs);

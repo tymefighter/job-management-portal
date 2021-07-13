@@ -4,10 +4,11 @@
     font-size: 1.5rem;
     background-color: white;
     border: 0.2rem solid black;
+    justify-content: space-between;
 }
 
 .job-item__span {
-    flex-grow: 1;
+    flex-grow: 0 30%;
     padding: 0 0.4rem;
 }
 

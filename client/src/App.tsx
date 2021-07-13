@@ -10,6 +10,7 @@ import Home from "./home/Home";
 import Companies from "./companies/Companies";
 
 import "./styles/App.scss";
+import Jobs from "./jobs/Jobs";
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -23,7 +24,9 @@ function App() {
                         <Route path="/companies">
                             <Companies />
                         </Route>
-                        <Route path="/jobs"></Route>
+                        <Route path="/jobs">
+                            <Jobs />
+                        </Route>
                         <Route path="/information"></Route>
                         <Route path="/">
                             <Home />
