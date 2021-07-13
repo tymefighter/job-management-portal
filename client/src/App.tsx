@@ -7,20 +7,24 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Nav from "./Nav";
 import Footer from "./Footer";
 
+import "./styles/App.scss";
+
 const store = createStore(reducer, applyMiddleware(thunk));
 
 function App() {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <Nav />
-                <Switch>
-                    <Route path="/companies"></Route>
-                    <Route path="/jobs"></Route>
-                    <Route path="/information"></Route>
-                    <Route path="/"></Route>
-                </Switch>
-                <Footer />
+                <div className="app">
+                    <Nav />
+                    <Switch>
+                        <Route path="/companies"></Route>
+                        <Route path="/jobs"></Route>
+                        <Route path="/information"></Route>
+                        <Route path="/"></Route>
+                    </Switch>
+                    <Footer />
+                </div>
             </BrowserRouter>
         </Provider>
     );
