@@ -20,7 +20,6 @@ interface CompanyProps {
 
 interface RouteParams {
     companyId: string;
-    url: string;
 };
 
 function Company({status, companies}: CompanyProps) {
@@ -31,7 +30,7 @@ function Company({status, companies}: CompanyProps) {
     if(status !== "LOADED") return <div>{status}</div>;
 
     const company = companies.find(company => company.id === companyId);
-    if(company === undefined) return <div>Invalid Company</div>
+    if(company === undefined) return <div>Invalid Company</div>;
 
     return (
         <div className="company">
