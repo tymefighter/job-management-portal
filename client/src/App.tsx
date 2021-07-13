@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Nav from "./Common/Nav";
 import Footer from "./Common/Footer";
+import Home from "./home/Home";
 
 import "./styles/App.scss";
 
@@ -21,7 +22,9 @@ function App() {
                         <Route path="/companies"></Route>
                         <Route path="/jobs"></Route>
                         <Route path="/information"></Route>
-                        <Route path="/"></Route>
+                        <Route path="/">
+                            <Home />
+                        </Route>
                     </Switch>
                     <Footer />
                 </div>
