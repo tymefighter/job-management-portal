@@ -15,10 +15,10 @@ function App() {
             <BrowserRouter>
                 <Nav />
                 <Switch>
-                    <Route path="/home"></Route>
                     <Route path="/companies"></Route>
                     <Route path="/jobs"></Route>
                     <Route path="/information"></Route>
+                    <Route path="/"></Route>
                 </Switch>
                 <Footer />
             </BrowserRouter>

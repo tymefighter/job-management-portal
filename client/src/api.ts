@@ -15,7 +15,7 @@ export async function fetchCompanies() {
     const companies = await response.json();
 
     if(types.isCompanyList(companies)) return companies;
-    else Promise.reject("company list does not have the correct type");
+    else return Promise.reject("company list does not have the correct type");
 }
 
 export async function addCompany(company: types.CompanyWithoutId) {
@@ -32,7 +32,7 @@ export async function addCompany(company: types.CompanyWithoutId) {
     const companyReceived = await response.json();
 
     if(types.isCompany(companyReceived)) return companyReceived;
-    else Promise.reject("company does not have the correct type");
+    else return Promise.reject("company does not have the correct type");
 }
 
 export async function fetchCompany(companyId: string) {
@@ -48,7 +48,7 @@ export async function fetchCompany(companyId: string) {
     const company = await response.json();
 
     if(types.isCompany(company)) return company;
-    else Promise.reject("company does not have the correct type");
+    else return Promise.reject("company does not have the correct type");
 }
 
 export async function editCompany(
@@ -89,7 +89,7 @@ export async function fetchJobs(companyId: string) {
     const jobList = await response.json();
 
     if(types.isJobList(jobList)) return jobList;
-    else Promise.reject("job list does not have the correct type");
+    else return Promise.reject("job list does not have the correct type");
 }
 
 export async function addJob(companyId: string, job: types.JobWithoutId) {
@@ -106,7 +106,7 @@ export async function addJob(companyId: string, job: types.JobWithoutId) {
     const jobReceived = await response.json();
 
     if(types.isJob(jobReceived)) return jobReceived;
-    else Promise.reject("job does not have the correct type");
+    else return Promise.reject("job does not have the correct type");
 }
 
 export async function fetchJob(
@@ -124,7 +124,7 @@ export async function fetchJob(
     const job = await response.json();
 
     if(types.isJob(job)) return job;
-    else Promise.reject("job does not have the correct type");
+    else return Promise.reject("job does not have the correct type");
 }
 
 export async function editJob(
