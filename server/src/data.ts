@@ -4,7 +4,10 @@ import * as fs from "fs";
 /** Data */
 
 const DATA_PATH = "server/data/companies.json";
-let data = JSON.parse(fs.readFileSync(DATA_PATH, "utf-8")) as types.Company[];
+let loadData = JSON.parse(fs.readFileSync(DATA_PATH, "utf-8"));
+
+if(!types.isCompanyList(loadData)) throw Error("Loaded Company List Type Error");
+let data = loadData;
 
 /** Helpers */
 

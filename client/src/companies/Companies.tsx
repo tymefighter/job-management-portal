@@ -7,6 +7,7 @@ import * as types from "../types";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import CompanyCard from "./CompanyCard";
 import Company from "./Company";
+import CompanyJobs from "../jobs/CompanyJobs";
 
 import  "../styles/Companies.scss";
 
@@ -60,28 +61,28 @@ function Companies({status, companies, getCompanies}: CompaniesProps) {
 
     return (
         <Switch>
-            <Route path={`${path}/add-company`}>
+            <Route path={`${path}/add-company`} exact>
 
             </Route>
-            <Route path={`${path}/:companyId`}>
+            <Route path={`${path}/:companyId`} exact>
                 <Company />
             </Route>
-            <Route path={`${path}/:companyId/edit`}>
+            <Route path={`${path}/:companyId/edit`} exact>
 
             </Route>
-            <Route path={`${path}/:companyId/jobs`}>
+            <Route path={`${path}/:companyId/jobs`} exact>
+                <CompanyJobs />
+            </Route>
+            <Route path={`${path}/:companyId/comments`} exact>
 
             </Route>
-            <Route path={`${path}/:companyId/comments`}>
+            <Route path={`${path}/:companyId/jobs/add-job`} exact>
 
             </Route>
-            <Route path={`${path}/:companyId/jobs/add-job`}>
+            <Route path={`${path}/:companyId/jobs/:jobId`} exact>
 
             </Route>
-            <Route path={`${path}/:companyId/jobs/:jobId`}>
-
-            </Route>
-            <Route path={`${path}/:companyId/jobs/:jobId/edit`}>
+            <Route path={`${path}/:companyId/jobs/:jobId/edit`} exact>
 
             </Route>
             <Route path={`${path}/`}>

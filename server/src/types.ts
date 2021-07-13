@@ -58,6 +58,15 @@ export function isJob(job: any): job is Job {
         && typeof job.id === "string";
 }
 
+export function isJobList(jobs: any): jobs is Job[] {
+    if(!(jobs instanceof Array)) return false;
+
+    for(const job of jobs)
+        if(!isJob(job)) return false;
+    
+    return true;
+}
+
 export function isJobWithoutId(job: any): job is Job {
     return hasJobProps(job);
 }
@@ -81,10 +90,8 @@ function hasCompanyProps(company: any) {
         || typeof company.description !== "string"
         || !(company.jobs instanceof Array)
         || !(company.comments instanceof Array)
+        || !(isJobList(company.jobs))
     ) return false;
-
-    for(const job of company.jobs)
-        if(!isJob(job)) return false;
     
     for(const comment of company.comments)
         if(!isComment(comment)) return false;
@@ -99,6 +106,15 @@ export function isCompany(company: any): company is Company {
 
 export function isCompanyWithoutId(company: any): company is Company {
     return hasCompanyProps(company);
+}
+
+export function isCompanyList(companies: any): companies is Company[] {
+    if(!(companies instanceof Array)) return false;
+
+    for(const company of companies)
+        if(!isCompany(company)) return false;
+    
+    return true;
 }
 
 interface AllowedPropsCompanyEditType {

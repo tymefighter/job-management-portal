@@ -1,0 +1,11 @@
+.company-jobs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem
+}
+
+.job-item-link {
+    flex-grow: 1;
+    text-decoration: none;
+    color: black;
+}

@@ -90,10 +90,8 @@ function hasCompanyProps(company: any) {
         || typeof company.description !== "string"
         || !(company.jobs instanceof Array)
         || !(company.comments instanceof Array)
+        || !(isJobList(company.jobs))
     ) return false;
-
-    for(const job of company.jobs)
-        if(!isJob(job)) return false;
     
     for(const comment of company.comments)
         if(!isComment(comment)) return false;
