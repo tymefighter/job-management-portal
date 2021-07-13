@@ -28,6 +28,8 @@ interface CompaniesProps {
 }
 
 function RenderCompanies({companies}: {companies: types.Company[]}) {
+    const { url } = useRouteMatch();
+
     return (
         <div className="companies">
             {companies.map(company => {
@@ -41,13 +43,14 @@ function RenderCompanies({companies}: {companies: types.Company[]}) {
                     </Link>
                 )
             })}
+            <Link className="add-company-btn" to={`${url}/add-company`}>+</Link>
         </div>
     );
 }
 
 function Companies({status, companies, getCompanies}: CompaniesProps) {
 
-    const {path, url} = useRouteMatch();
+    const { path } = useRouteMatch();
 
     useEffect(() => {
         if(status === "NOT_LOADED") getCompanies();
