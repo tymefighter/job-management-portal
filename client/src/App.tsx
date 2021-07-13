@@ -25,9 +25,9 @@ function App() {
                         </Route>
                         <Route path="/jobs"></Route>
                         <Route path="/information"></Route>
-                        <Route path="/">
+                        {/* <Route path="/">
                             <Home />
-                        </Route>
+                        </Route> */}
                     </Switch>
                     <Footer />
                 </div>

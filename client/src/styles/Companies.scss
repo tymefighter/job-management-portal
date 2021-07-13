@@ -4,6 +4,13 @@
     gap: 3rem;
 }
 
+.companies__link {
+    text-decoration: none;
+    color: black;
+    height: 100%;
+    width: 100%;
+}
+
 @media screen and (max-width: 60rem) {
     .companies {
         grid-template-columns: repeat(2, 1fr);

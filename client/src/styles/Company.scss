@@ -1,0 +1,54 @@
+.company {
+    display: grid;
+    gap: 5rem;
+    grid-template-columns: 3fr 7fr;
+    grid-template-areas: 
+        "image head"
+        "image desc"
+        "link link";
+}
+
+.company__img {
+    grid-area: image;
+    height: 20rem;
+    width: 100%;
+    border: 0.2rem solid black;
+}
+
+.company__name {
+    grid-area: head;
+    text-align: center;
+}
+
+.company__desc {
+    grid-area: desc;
+    font-size: 1.2rem;
+}
+
+.company__link-group {
+    grid-area: link;
+    display: flex;
+    gap: 2rem
+}
+
+.company__link {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+    background-color: rgb(207, 226, 225);
+    border-radius: 1rem;
+    border: 0.2rem solid black;
+}
+
+@media screen and (max-width: 60rem) {
+    .company {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "image"
+            "head"
+            "desc"
+            "link";
+    }
+}
