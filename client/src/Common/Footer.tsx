@@ -5,7 +5,7 @@ import "../styles/Footer.scss";
 function Footer() {
     return (
         <footer className="footer">
-            <div className="footer__section">
+            <div className="footer__nav footer__section">
                 <h2 className="footer__section-head">Nav</h2>
                 <ul className="footer__section-list">
                     <li><Link to="/">Home</Link></li>
@@ -14,7 +14,7 @@ function Footer() {
                     <li><Link to="/information">Information</Link></li>
                 </ul>
             </div>
-            <div className="footer__section">
+            <div className="footer__contact footer__section">
                 <h2 className="footer__section-head">Contact Me</h2>
                 <ul className="footer__section-list">
                     <li> Email me at{" "}
@@ -26,7 +26,7 @@ function Footer() {
                     <li>WhatsApp Phone Number: +91 9920460903</li>
                 </ul>
             </div>
-            <div className="footer__section">
+            <div className="footer__me footer__section">
                 <h2 className="footer__section-head">Ahmed Zaheer Dadarkar</h2>
                 <p className="footer__section-para">
                     I am <b>Ahmed Zaheer Dadarkar</b>, also known as <b>tymefighter</b>.

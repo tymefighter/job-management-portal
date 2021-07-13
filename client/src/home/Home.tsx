@@ -11,6 +11,8 @@ function Home() {
                 imageUrl="images/job-management.jpg"
                 >
                 Manage all your jobs at one place with our Job Management Application.
+                This application allows you to add, delete and edit companies and jobs
+                as you like, while providing you with an amazing user experience.
             </HomeItem>
             <HomeItem
                 className="home-item--alternate"

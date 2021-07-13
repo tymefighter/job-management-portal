@@ -22,3 +22,15 @@
 .footer__section-para {
     font-size: 1.2rem;
 }
+
+@media screen and (max-width: 60rem) {
+    .footer__me {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 30rem) {
+    .footer__nav {
+        display: none;
+    }
+}

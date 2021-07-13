@@ -34,7 +34,7 @@ $font-size: 1.5rem;
     font-size: $font-size;
 }
 
-@media screen and (max-width: 40rem) {
+@media screen and (max-width: 60rem) {
     .nav {
         flex-direction: column;
     }
