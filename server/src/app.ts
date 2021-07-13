@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as types from "./types";
 import * as data from "./data";
+import * as cors from "cors";
 
 const PORT = 3000;
 
@@ -10,6 +11,7 @@ const app = express();
 /** Middleware */
 
 app.use(express.json());
+app.use(cors());
 
 /** Routes */
 
@@ -24,10 +26,14 @@ app.route("/companies")
     const companyWithoutId = req.body;
     if(types.isCompanyWithoutId(companyWithoutId)) {
         const company = data.addCompany(companyWithoutId);
-        res.status(200).json(company);
+        res
+        .setHeader("content-type", "application/json")
+        .status(200)
+        .json(company);
     }
     else 
         res
+        .setHeader("content-type", "text/plain")
         .status(400)
         .end("Invalid Request Data");
 })
