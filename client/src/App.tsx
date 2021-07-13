@@ -4,8 +4,8 @@ import { reducer } from "./redux/reducer";
 import thunk from "redux-thunk";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Nav from "./Nav";
-import Footer from "./Footer";
+import Nav from "./Common/Nav";
+import Footer from "./Common/Footer";
 
 import "./styles/App.scss";
 
