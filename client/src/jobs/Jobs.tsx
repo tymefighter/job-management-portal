@@ -38,7 +38,7 @@ function Jobs({status, companies, getCompanies}: CompanyProps) {
             {companies.flatMap(company => company.jobs.map(job => {
                 return (
                     <Link key={`${company.id}-${job.id}`}
-                        className="job-item-link" to={`/company/${company.id}/jobs/${job.id}`}>
+                        className="job-item-link" to={`/companies/${company.id}/jobs/${job.id}`}>
                         <JobItem 
                             companyName={company.name}
                             jobName={job.name}

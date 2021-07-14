@@ -8,6 +8,7 @@ import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import CompanyCard from "./CompanyCard";
 import Company from "./Company";
 import CompanyJobs from "../jobs/CompanyJobs";
+import Job from "../jobs/Job";
 
 import  "../styles/Companies.scss";
 
@@ -80,7 +81,7 @@ function Companies({status, companies, getCompanies}: CompaniesProps) {
 
             </Route>
             <Route path={`${path}/:companyId/jobs/:jobId`} exact>
-
+                <Job />
             </Route>
             <Route path={`${path}/:companyId/jobs/:jobId/edit`} exact>
 
