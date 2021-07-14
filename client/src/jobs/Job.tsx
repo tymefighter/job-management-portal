@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import { LoadStatus, StateType } from "../redux/reducer";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 import * as types from "../types";
+import FixedLinkButton from "../common/FixedLinkButton";
 
 import  "../styles/Job.scss";
 
@@ -24,6 +25,7 @@ interface RouteParams {
 
 function Job({status, companies}: CompanyProps) {
 
+    const { url } = useRouteMatch();
     const { companyId, jobId } = useParams<RouteParams>();
 
     if(status !== "LOADED") return <div>{status}</div>;
@@ -44,6 +46,8 @@ function Job({status, companies}: CompanyProps) {
                 <b>Description</b>: <br />
                 {job.description}
             </p>
+
+            <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
         </div>
     );
 }

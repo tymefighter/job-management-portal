@@ -4,6 +4,7 @@ import * as types from "../types";
 import { useParams, useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import JobItem from "./JobItem";
+import FixedLinkButton from "../common/FixedLinkButton";
 
 import  "../styles/CompanyJobs.scss";
 
@@ -48,6 +49,7 @@ function CompanyJobs({status, companies}: CompanyProps) {
                     </Link>
                 )
             })}
+            <FixedLinkButton to={`${url}/add-job`}>+</FixedLinkButton>
         </div>
     );
 }
