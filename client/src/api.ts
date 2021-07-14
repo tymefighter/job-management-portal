@@ -98,6 +98,9 @@ export async function fetchJobs(companyId: string) {
 export async function addJob(companyId: string, job: types.JobWithoutId) {
     const response = await fetch(baseUrl + `/companies/${companyId}/jobs`, {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(job)
     });
 
@@ -135,6 +138,9 @@ export async function editJob(
 ) {
     const response = await fetch(baseUrl + `/companies/${companyId}/jobs/${jobId}`, {
         method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(jobEdit)
     });
 
