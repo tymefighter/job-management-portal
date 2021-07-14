@@ -28,7 +28,7 @@ function CompanyEdit({company, editCompany}: CompanyEditProps) {
     const [nameInput, setNameInput] = useState(company.name);
     const [descInput, setDescInput] = useState(company.description);
 
-    function submitHandler(event: React.FormEvent<HTMLButtonElement>) {
+    function submitHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         
         const companyEdit: types.CompanyEdit = {};
@@ -40,7 +40,7 @@ function CompanyEdit({company, editCompany}: CompanyEditProps) {
     }
 
     return (
-        <form className="company-edit-form">
+        <form className="company-edit-form" onSubmit={submitHandler}>
             <img className="company-edit-form__img" 
                 src={company.imgUrl} alt={company.name} />
 
@@ -59,7 +59,7 @@ function CompanyEdit({company, editCompany}: CompanyEditProps) {
             />
 
             <button className="company-edit-form__submit-btn"
-                type="submit" onSubmit={submitHandler}>Submit</button>
+                type="submit">Submit</button>
         </form>
     );
 }

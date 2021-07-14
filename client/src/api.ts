@@ -56,6 +56,9 @@ export async function editCompany(
 ) {
     const response = await fetch(baseUrl + `/companies/${companyId}`, {
         method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(companyEdit)
     });
 

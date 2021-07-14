@@ -55,6 +55,7 @@ app.route("/companies/:companyId")
 // update company of company whose id is companyId
 .put((req, res) => { 
     const companyEdit = req.body;
+
     if(
         types.isCompanyEdit(companyEdit) 
         && data.editCompany(req.params.companyId, companyEdit)

@@ -134,7 +134,7 @@ export function isCompanyEdit(companyEdit: any): companyEdit is CompanyEdit {
     if(typeof companyEdit !== "object") return false;
 
     for(const prop of Object.getOwnPropertyNames(companyEdit))
-        if(typeof companyEdit[prop] === ALLOWED_PROPS_COMPANY_EDIT[prop]) 
+        if(typeof companyEdit[prop] !== ALLOWED_PROPS_COMPANY_EDIT[prop]) 
             return false;
     
     return true;
