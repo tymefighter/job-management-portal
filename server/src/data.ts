@@ -45,9 +45,9 @@ export function getCompanies(): types.Company[] {
     return data;
 }
 
-export function addCompany(company: types.CompanyWithoutId): types.Company {
+export function addCompany(company: types.CompanyUser, imgUrl: string): types.Company {
     const id = computeCompanyId();
-    const newCompany = {id, ...company};
+    const newCompany = {id, ...company, imgUrl, jobs: [], comments: []};
 
     data.push(newCompany);
     writeDataToFile();

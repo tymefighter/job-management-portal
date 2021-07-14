@@ -25,7 +25,10 @@ export interface Company {
     comments: Comment[]
 };
 
-export type CompanyWithoutId = Omit<Company, "id">;
+export interface CompanyUser {
+    name: string;
+    description: string;
+};
 
 export interface CompanyEdit {
     name?: string;
@@ -103,8 +106,13 @@ export function isCompany(company: any): company is Company {
         && typeof company.id == "string";
 }
 
-export function isCompanyWithoutId(company: any): company is Company {
-    return hasCompanyProps(company);
+export function isCompanyUser(companyUser: any): companyUser is CompanyUser {
+    if(typeof companyUser !== "object") return false;
+
+    return (
+        typeof companyUser.name === "string"
+        && typeof companyUser.description === "string"
+    );
 }
 
 export function isCompanyList(companies: any): companies is Company[] {
