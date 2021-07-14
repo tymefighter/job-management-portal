@@ -76,8 +76,8 @@ export function isComment(comment: any): comment is Comment {
 
     return (
         typeof comment.id === "string"
-        && comment.comment === "string"
-        && comment.date === "string"
+        && typeof comment.comment === "string"
+        && typeof comment.date === "string"
     );
 }
 
