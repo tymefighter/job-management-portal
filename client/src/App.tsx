@@ -8,9 +8,10 @@ import Nav from "./common/Nav";
 import Footer from "./common/Footer";
 import Home from "./home/Home";
 import Companies from "./companies/Companies";
+import Jobs from "./jobs/Jobs";
+import Information from "./information/Information";
 
 import "./styles/App.scss";
-import Jobs from "./jobs/Jobs";
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -27,7 +28,9 @@ function App() {
                         <Route path="/jobs">
                             <Jobs />
                         </Route>
-                        <Route path="/information"></Route>
+                        <Route path="/information">
+                            <Information />
+                        </Route>
                         <Route path="/">
                             <Home />
                         </Route>

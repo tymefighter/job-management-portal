@@ -1,0 +1,20 @@
+.information {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 3rem;
+}
+
+.information__heading {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.information__item-heading {
+    font-size: 1.7rem;
+    font-style: italic;
+}
+
+.information__item-desc, .information__item-list {
+    font-size: 1.5rem;
+}
