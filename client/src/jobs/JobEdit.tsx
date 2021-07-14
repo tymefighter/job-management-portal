@@ -6,6 +6,7 @@ import { useState } from "react";
 import * as thunk from "../redux/thunk";
 
 import  "../styles/JobEditAndAdd.scss";
+import FixedButton from "../common/FixedButton";
 
 function mapStateToProps(state: StateType) {
     return {
@@ -15,16 +16,18 @@ function mapStateToProps(state: StateType) {
 }
 
 const mapDispatchToProps = {
-    editJob: thunk.editJob
+    editJob: thunk.editJob,
+    deleteJob: thunk.deleteJob
 };
 
 interface JobEditProps {
     company: types.Company;
     job: types.Job;
     editJob: (companyId: string, jobId: string, jobEdit: types.JobEdit) => void;
+    deleteJob: (companyId: string, jobId: string) => void;
 };
 
-function JobEdit({company, job, editJob}: JobEditProps) {
+function JobEdit({company, job, editJob, deleteJob}: JobEditProps) {
 
     const [nameInput, setNameInput] = useState(job.name);
     const [salaryInput, setSalaryInput] = useState(job.salary);
@@ -45,6 +48,11 @@ function JobEdit({company, job, editJob}: JobEditProps) {
         editJob(company.id, job.id, jobEdit);
 
         history.push(`/companies/${company.id}/jobs/${job.id}`);
+    }
+
+    function deleteHandler() {
+        deleteJob(company.id, job.id);
+        history.replace(`/companies/${company.id}/jobs/`);
     }
 
     return (
@@ -82,6 +90,8 @@ function JobEdit({company, job, editJob}: JobEditProps) {
 
             <button className="job-edit-form__submit-btn"
                 type="submit">Submit</button>
+                
+            <FixedButton onClick={deleteHandler}>&#128465;</FixedButton>
         </form>
     );
 }
@@ -90,6 +100,7 @@ interface JobEditWithHandlingProps {
     status: LoadStatus;
     companies: types.Company[];
     editJob: (companyId: string, jobId: string, jobEdit: types.JobEdit) => void;
+    deleteJob: (companyId: string, jobId: string) => void;
 };
 
 interface RouteParams {
@@ -98,7 +109,7 @@ interface RouteParams {
 };
 
 function JobEditWithHandling(
-    {status, companies, editJob}: JobEditWithHandlingProps
+    {status, companies, editJob, deleteJob}: JobEditWithHandlingProps
 ) {
     const { companyId, jobId } = useParams<RouteParams>();
 
@@ -110,7 +121,8 @@ function JobEditWithHandling(
     const job = company.jobs.find(job => job.id === jobId);
     if(job === undefined) return <div>Invalid Job</div>;
 
-    return <JobEdit company={company} job={job} editJob={editJob} />;
+    return <JobEdit company={company} job={job} 
+        editJob={editJob} deleteJob={deleteJob} />;
 }
 
 

@@ -1,0 +1,15 @@
+.fixed-button {
+    position: fixed;
+    top: 90vh;
+    left: 90vw;
+    font-size: 2rem;
+    color: black;
+    background-color: rgb(223, 119, 119);
+    padding: 1rem;
+    border: 0.2rem solid black;
+    border-radius: 5rem;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

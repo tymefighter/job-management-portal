@@ -4,6 +4,7 @@ import * as types from "../types";
 import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 import * as thunk from "../redux/thunk";
+import FixedButton from "../common/FixedButton";
 
 import  "../styles/CompanyEdit.scss";
 
@@ -15,15 +16,17 @@ function mapStateToProps(state: StateType) {
 }
 
 const mapDispatchToProps = {
-    editCompany: thunk.editCompany
+    editCompany: thunk.editCompany,
+    deleteCompany: thunk.deleteCompany
 };
 
 interface CompanyEditProps {
     company: types.Company;
     editCompany: (companyId: string, companyEdit: types.CompanyEdit) => void;
+    deleteCompany: (companyId: string) => void;
 };
 
-function CompanyEdit({company, editCompany}: CompanyEditProps) {
+function CompanyEdit({company, editCompany, deleteCompany}: CompanyEditProps) {
 
     const [nameInput, setNameInput] = useState(company.name);
     const [descInput, setDescInput] = useState(company.description);
@@ -40,6 +43,11 @@ function CompanyEdit({company, editCompany}: CompanyEditProps) {
         editCompany(company.id, companyEdit);
 
         history.push(`/companies/${company.id}`);
+    }
+
+    function deleteHandler() {
+        deleteCompany(company.id);
+        history.replace(`/companies/`);
     }
 
     return (
@@ -63,6 +71,8 @@ function CompanyEdit({company, editCompany}: CompanyEditProps) {
 
             <button className="company-edit-form__submit-btn"
                 type="submit">Submit</button>
+
+            <FixedButton onClick={deleteHandler}>&#128465;</FixedButton>
         </form>
     );
 }
@@ -71,6 +81,7 @@ interface CompanyEditWithHandlingProps {
     status: LoadStatus;
     companies: types.Company[];
     editCompany: (companyId: string, companyEdit: types.CompanyEdit) => void;
+    deleteCompany: (companyId: string) => void;
 };
 
 interface RouteParams {
@@ -78,7 +89,7 @@ interface RouteParams {
 };
 
 function CompanyEditWithHandling(
-    {status, companies, editCompany}: CompanyEditWithHandlingProps
+    {status, companies, editCompany, deleteCompany}: CompanyEditWithHandlingProps
 ) {
     const { companyId } = useParams<RouteParams>();
 
@@ -87,7 +98,8 @@ function CompanyEditWithHandling(
     const company = companies.find(company => company.id === companyId);
     if(company === undefined) return <div>Invalid Company</div>;
 
-    return <CompanyEdit company={company} editCompany={editCompany} />;
+    return <CompanyEdit company={company} 
+        editCompany={editCompany} deleteCompany={deleteCompany} />;
 }
 
 
