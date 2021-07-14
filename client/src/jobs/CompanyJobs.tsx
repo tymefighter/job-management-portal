@@ -5,6 +5,7 @@ import { useParams, useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import JobItem from "./JobItem";
 import FixedLinkButton from "../common/FixedLinkButton";
+import BreadCrumb from "../common/BreadCrumb";
 
 import  "../styles/CompanyJobs.scss";
 
@@ -36,21 +37,30 @@ function CompanyJobs({status, companies}: CompanyProps) {
     if(company === undefined) return <div>Invalid Company</div>
 
     return (
-        <div className="company-jobs">
-            {company.jobs.map(job => {
-                return (
-                    <Link key={job.id}
-                        className="job-item-link" to={`${url}/${job.id}`}>
-                        <JobItem 
-                            companyName={company.name}
-                            jobName={job.name}
-                            salary={job.salary}
-                        />
-                    </Link>
-                )
-            })}
-            <FixedLinkButton to={`${url}/add-job`}>+</FixedLinkButton>
-        </div>
+        <>
+            <BreadCrumb 
+                nameUrlList={[
+                    {name: "company", url: "/companies"},
+                    {name: company.name, url: `/companies/${company.id}`},
+                    {name: "jobs", url: `/companies/${company.id}/jobs`}
+                ]}
+            />
+            <div className="company-jobs">
+                {company.jobs.map(job => {
+                    return (
+                        <Link key={job.id}
+                            className="job-item-link" to={`${url}/${job.id}`}>
+                            <JobItem 
+                                companyName={company.name}
+                                jobName={job.name}
+                                salary={job.salary}
+                            />
+                        </Link>
+                    )
+                })}
+                <FixedLinkButton to={`${url}/add-job`}>+</FixedLinkButton>
+            </div>
+        </>
     );
 }
 

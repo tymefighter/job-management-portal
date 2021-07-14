@@ -7,6 +7,7 @@ import * as thunk from "../redux/thunk";
 
 import  "../styles/JobEditAndAdd.scss";
 import FixedButton from "../common/FixedButton";
+import BreadCrumb from "../common/BreadCrumb";
 
 function mapStateToProps(state: StateType) {
     return {
@@ -56,43 +57,54 @@ function JobEdit({company, job, editJob, deleteJob}: JobEditProps) {
     }
 
     return (
-        <form className="job-edit-form" onSubmit={submitHandler}>
-            <img className="job-edit-form__img" 
-                src={company.imgUrl} alt={company.name} />
-
-            <label className="job-edit-form__label" htmlFor="name">Name</label>
-            <input className="job-edit-form__input"
-                type="text" name="name" id="name" 
-                value={nameInput} 
-                onChange={(event) => setNameInput(event.target.value)}
+        <>
+            <BreadCrumb 
+                nameUrlList={[
+                    {name: "company", url: "/companies"},
+                    {name: company.name, url: `/companies/${company.id}`},
+                    {name: "jobs", url: `/companies/${company.id}/jobs`},
+                    {name: job.name, url: `/companies/${company.id}/jobs/${job.id}`},
+                    {name: "edit", url: `/companies/${company.id}/jobs/${job.id}/edit`}
+                ]}
             />
+            <form className="job-edit-form" onSubmit={submitHandler}>
+                <img className="job-edit-form__img" 
+                    src={company.imgUrl} alt={company.name} />
 
-            <label className="job-edit-form__label" htmlFor="salary">Salary</label>
-            <input className="job-edit-form__input"
-                type="number" name="salary" id="salary" 
-                value={salaryInput} 
-                onChange={(event) => setSalaryInput(parseInt(event.target.value))}
-            />
+                <label className="job-edit-form__label" htmlFor="name">Name</label>
+                <input className="job-edit-form__input"
+                    type="text" name="name" id="name" 
+                    value={nameInput} 
+                    onChange={(event) => setNameInput(event.target.value)}
+                />
 
-            <label className="job-edit-form__label" htmlFor="location">Location</label>
-            <input className="job-edit-form__input"
-                type="string" name="location" id="location" 
-                value={locationInput} 
-                onChange={(event) => setLocationInput(event.target.value)}
-            />
+                <label className="job-edit-form__label" htmlFor="salary">Salary</label>
+                <input className="job-edit-form__input"
+                    type="number" name="salary" id="salary" 
+                    value={salaryInput} 
+                    onChange={(event) => setSalaryInput(parseInt(event.target.value))}
+                />
 
-            <label className="job-edit-form__label" htmlFor="description">Description</label>
-            <textarea className="job-edit-form__textarea"
-                name="description" id="description" rows={4} 
-                value={descInput}
-                onChange={(event) => setDescInput(event.target.value)}
-            />
+                <label className="job-edit-form__label" htmlFor="location">Location</label>
+                <input className="job-edit-form__input"
+                    type="string" name="location" id="location" 
+                    value={locationInput} 
+                    onChange={(event) => setLocationInput(event.target.value)}
+                />
 
-            <button className="job-edit-form__submit-btn"
-                type="submit">Submit</button>
-                
-            <FixedButton onClick={deleteHandler}>&#128465;</FixedButton>
-        </form>
+                <label className="job-edit-form__label" htmlFor="description">Description</label>
+                <textarea className="job-edit-form__textarea"
+                    name="description" id="description" rows={4} 
+                    value={descInput}
+                    onChange={(event) => setDescInput(event.target.value)}
+                />
+
+                <button className="job-edit-form__submit-btn"
+                    type="submit">Submit</button>
+                    
+                <FixedButton onClick={deleteHandler}>&#128465;</FixedButton>
+            </form>
+        </>
     );
 }
 

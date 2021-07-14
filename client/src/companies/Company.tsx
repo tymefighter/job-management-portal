@@ -3,9 +3,10 @@ import { LoadStatus, StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useParams, useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
+import FixedLinkButton from "../common/FixedLinkButton";
+import BreadCrumb from "../common/BreadCrumb";
 
 import  "../styles/Company.scss";
-import FixedLinkButton from "../common/FixedLinkButton";
 
 function mapStateToProps(state: StateType) {
     return {
@@ -34,19 +35,28 @@ function Company({status, companies}: CompanyProps) {
     if(company === undefined) return <div>Invalid Company</div>;
 
     return (
-        <div className="company">
-            <img className="company__img" 
-                src={company.imgUrl} alt={company.name} />
-            <h1 className="company__name">{company.name}</h1>
-            <p className="company__desc">{company.description}</p>
+        <>
+            <BreadCrumb 
+                nameUrlList={[
+                    {name: "company", url: "/companies"},
+                    {name: company.name, url: `/companies/${company.id}`}
+                ]}
+            />
+            <div className="company">
 
-            <div className="company__link-group">
-                <Link className="company__link" to={`${url}/jobs`}>Jobs</Link>
-                <Link className="company__link" to={`${url}/comments`}>Comments</Link>
+                <img className="company__img" 
+                    src={company.imgUrl} alt={company.name} />
+                <h1 className="company__name">{company.name}</h1>
+                <p className="company__desc">{company.description}</p>
+
+                <div className="company__link-group">
+                    <Link className="company__link" to={`${url}/jobs`}>Jobs</Link>
+                    <Link className="company__link" to={`${url}/comments`}>Comments</Link>
+                </div>
+
+                <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
             </div>
-
-            <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
-        </div>
+        </>
     );
 }
 

@@ -1,0 +1,29 @@
+.bread-crumb {
+    list-style: none;
+    padding: 0;
+    margin: 2rem;
+}
+
+.bread-crumb__element {
+    display: inline-block;
+    padding: 0.3rem;
+    border-color: black;
+    border-style: solid;
+    border-width: 0.2rem 0.2rem 0.2rem 0;
+    transform: skewX(-20deg);
+    background-color: rgb(205, 248, 242);
+}
+
+.bread-crumb__element:first-child {
+    border-left-width: 0.2rem;
+}
+
+.bread-crumb__element:last-child {
+    background-color: rgb(200, 217, 236);
+}
+
+.bread-crumb__link {
+    text-decoration: none;
+    color: black;
+    font-size: 1.8rem;
+}

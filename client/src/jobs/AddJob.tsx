@@ -4,6 +4,7 @@ import * as types from "../types";
 import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 import * as thunk from "../redux/thunk";
+import BreadCrumb from "../common/BreadCrumb";
 
 import  "../styles/JobEditAndAdd.scss";
 
@@ -47,41 +48,51 @@ function AddJob({company, addJob}: JobAddProps) {
     }
 
     return (
-        <form className="job-edit-form" onSubmit={submitHandler}>
-            <img className="job-edit-form__img" 
-                src={company.imgUrl} alt={company.name} />
-
-            <label className="job-edit-form__label" htmlFor="name">Name</label>
-            <input className="job-edit-form__input"
-                type="text" name="name" id="name" 
-                value={nameInput} 
-                onChange={(event) => setNameInput(event.target.value)}
+        <>
+            <BreadCrumb 
+                nameUrlList={[
+                    {name: "company", url: "/companies"},
+                    {name: company.name, url: `/companies/${company.id}`},
+                    {name: "jobs", url: `/companies/${company.id}/jobs`},
+                    {name: "add job", url: `/companies/${company.id}/add-job}`}
+                ]}
             />
+            <form className="job-edit-form" onSubmit={submitHandler}>
+                <img className="job-edit-form__img" 
+                    src={company.imgUrl} alt={company.name} />
 
-            <label className="job-edit-form__label" htmlFor="salary">Salary</label>
-            <input className="job-edit-form__input"
-                type="number" name="salary" id="salary" 
-                value={salaryInput} 
-                onChange={(event) => setSalaryInput(event.target.value)}
-            />
+                <label className="job-edit-form__label" htmlFor="name">Name</label>
+                <input className="job-edit-form__input"
+                    type="text" name="name" id="name" 
+                    value={nameInput} 
+                    onChange={(event) => setNameInput(event.target.value)}
+                />
 
-            <label className="job-edit-form__label" htmlFor="location">Location</label>
-            <input className="job-edit-form__input"
-                type="string" name="location" id="location" 
-                value={locationInput} 
-                onChange={(event) => setLocationInput(event.target.value)}
-            />
+                <label className="job-edit-form__label" htmlFor="salary">Salary</label>
+                <input className="job-edit-form__input"
+                    type="number" name="salary" id="salary" 
+                    value={salaryInput} 
+                    onChange={(event) => setSalaryInput(event.target.value)}
+                />
 
-            <label className="job-edit-form__label" htmlFor="description">Description</label>
-            <textarea className="job-edit-form__textarea"
-                name="description" id="description" rows={4} 
-                value={descInput}
-                onChange={(event) => setDescInput(event.target.value)}
-            />
+                <label className="job-edit-form__label" htmlFor="location">Location</label>
+                <input className="job-edit-form__input"
+                    type="string" name="location" id="location" 
+                    value={locationInput} 
+                    onChange={(event) => setLocationInput(event.target.value)}
+                />
 
-            <button className="job-edit-form__submit-btn"
-                type="submit">Submit</button>
-        </form>
+                <label className="job-edit-form__label" htmlFor="description">Description</label>
+                <textarea className="job-edit-form__textarea"
+                    name="description" id="description" rows={4} 
+                    value={descInput}
+                    onChange={(event) => setDescInput(event.target.value)}
+                />
+
+                <button className="job-edit-form__submit-btn"
+                    type="submit">Submit</button>
+            </form>
+        </>
     );
 }
 

@@ -3,6 +3,7 @@ import { LoadStatus, StateType } from "../redux/reducer";
 import { useParams, useRouteMatch } from "react-router-dom";
 import * as types from "../types";
 import FixedLinkButton from "../common/FixedLinkButton";
+import BreadCrumb from "../common/BreadCrumb";
 
 import  "../styles/Job.scss";
 
@@ -37,18 +38,28 @@ function Job({status, companies}: CompanyProps) {
     if(job === undefined) return <div>Invalid Job</div>;
 
     return (
-        <div className="job">
-            <h1 className="job__name">{job.name}</h1>
-            <h2 className="job__company">{company.name}</h2>
-            <p className="job__salary">Salary: ₹{job.salary} per month</p>
-            <p className="job__location">Location(s): {job.location}</p>
-            <p className="job__desc">
-                <b>Description</b>: <br />
-                {job.description}
-            </p>
+        <>
+            <BreadCrumb 
+                nameUrlList={[
+                    {name: "company", url: "/companies"},
+                    {name: company.name, url: `/companies/${company.id}`},
+                    {name: "jobs", url: `/companies/${company.id}/jobs`},
+                    {name: job.name, url: `/companies/${company.id}/jobs/${job.id}`}
+                ]}
+            />
+            <div className="job">
+                <h1 className="job__name">{job.name}</h1>
+                <h2 className="job__company">{company.name}</h2>
+                <p className="job__salary">Salary: ₹{job.salary} per month</p>
+                <p className="job__location">Location(s): {job.location}</p>
+                <p className="job__desc">
+                    <b>Description</b>: <br />
+                    {job.description}
+                </p>
 
-            <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
-        </div>
+                <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
+            </div>
+        </>
     );
 }
 
