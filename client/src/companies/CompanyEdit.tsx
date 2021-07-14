@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { LoadStatus, StateType } from "../redux/reducer";
 import * as types from "../types";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 import * as thunk from "../redux/thunk";
 
@@ -27,6 +27,7 @@ function CompanyEdit({company, editCompany}: CompanyEditProps) {
 
     const [nameInput, setNameInput] = useState(company.name);
     const [descInput, setDescInput] = useState(company.description);
+    const history = useHistory();
 
     function submitHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -37,6 +38,8 @@ function CompanyEdit({company, editCompany}: CompanyEditProps) {
         if(descInput !== company.description) companyEdit.description = descInput;
 
         editCompany(company.id, companyEdit);
+
+        history.push(`/companies/${company.id}`);
     }
 
     return (
