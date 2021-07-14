@@ -9,6 +9,7 @@ import CompanyCard from "./CompanyCard";
 import Company from "./Company";
 import CompanyJobs from "../jobs/CompanyJobs";
 import Job from "../jobs/Job";
+import FixedLinkButton from "../common/FixedLinkButton";
 
 import  "../styles/Companies.scss";
 
@@ -45,7 +46,7 @@ function RenderCompanies({companies}: {companies: types.Company[]}) {
                     </Link>
                 )
             })}
-            <Link className="add-company-btn" to={`${url}/add-company`}>+</Link>
+            <FixedLinkButton to={`${url}/add-company`}>+</FixedLinkButton>
         </div>
     );
 }

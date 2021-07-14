@@ -5,6 +5,7 @@ import { useParams, useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import  "../styles/Company.scss";
+import FixedLinkButton from "../common/FixedLinkButton";
 
 function mapStateToProps(state: StateType) {
     return {
@@ -43,6 +44,8 @@ function Company({status, companies}: CompanyProps) {
                 <Link className="company__link" to={`${url}/jobs`}>Jobs</Link>
                 <Link className="company__link" to={`${url}/comments`}>Comments</Link>
             </div>
+
+            <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
         </div>
     );
 }
