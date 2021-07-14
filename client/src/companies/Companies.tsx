@@ -14,6 +14,7 @@ import CompanyComments from "./CompanyComments";
 import CompanyEdit from "./CompanyEdit";
 import JobEdit from "../jobs/JobEdit";
 import AddJob from "../jobs/AddJob";
+import AddCompany from "./AddCompany";
 
 import  "../styles/Companies.scss";
 
@@ -68,7 +69,7 @@ function Companies({status, companies, getCompanies}: CompaniesProps) {
     return (
         <Switch>
             <Route path={`${path}/add-company`} exact>
-
+                <AddCompany />
             </Route>
             <Route path={`${path}/:companyId`} exact>
                 <Company />

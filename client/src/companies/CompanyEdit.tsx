@@ -7,7 +7,7 @@ import * as thunk from "../redux/thunk";
 import FixedButton from "../common/FixedButton";
 import BreadCrumb from "../common/BreadCrumb";
 
-import  "../styles/CompanyEdit.scss";
+import  "../styles/CompanyEditAndAdd.scss";
 
 function mapStateToProps(state: StateType) {
     return {
@@ -60,25 +60,25 @@ function CompanyEdit({company, editCompany, deleteCompany}: CompanyEditProps) {
                     {name: "edit", url: `/companies/${company.id}/edit`}
                 ]}
             />
-            <form className="company-edit-form" onSubmit={submitHandler}>
-                <img className="company-edit-form__img" 
+            <form className="company-form" onSubmit={submitHandler}>
+                <img className="company-form__img" 
                     src={company.imgUrl} alt={company.name} />
 
-                <label className="company-edit-form__name-label" htmlFor="name">Name</label>
-                <input className="company-edit-form__name-input"
+                <label className="company-form__label" htmlFor="name">Name</label>
+                <input className="company-form__input"
                     type="text" name="name" id="name" 
                     value={nameInput} 
                     onChange={(event) => setNameInput(event.target.value)}
                 />
 
-                <label className="company-edit-form__desc-label" htmlFor="description">Description</label>
-                <textarea className="company-edit-form__desc-input"
+                <label className="company-form__label" htmlFor="description">Description</label>
+                <textarea className="company-form__textarea"
                     name="description" id="description" rows={4} 
                     value={descInput}
                     onChange={(event) => setDescInput(event.target.value)}
                 />
 
-                <button className="company-edit-form__submit-btn"
+                <button className="company-form__submit-btn"
                     type="submit">Submit</button>
 
                 <FixedButton onClick={deleteHandler}>&#128465;</FixedButton>
