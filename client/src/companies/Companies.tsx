@@ -12,6 +12,7 @@ import Job from "../jobs/Job";
 import FixedLinkButton from "../common/FixedLinkButton";
 import CompanyComments from "./CompanyComments";
 import CompanyEdit from "./CompanyEdit";
+import JobEdit from "../jobs/JobEdit";
 
 import  "../styles/Companies.scss";
 
@@ -87,7 +88,7 @@ function Companies({status, companies, getCompanies}: CompaniesProps) {
                 <Job />
             </Route>
             <Route path={`${path}/:companyId/jobs/:jobId/edit`} exact>
-
+                <JobEdit />
             </Route>
             <Route path={`${path}/`}>
                 <RenderCompanies companies={companies} />

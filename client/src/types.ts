@@ -28,7 +28,6 @@ export interface Company {
 export type CompanyWithoutId = Omit<Company, "id">;
 
 export interface CompanyEdit {
-    imgUrl?: string;
     name?: string;
     description?: string;
 };

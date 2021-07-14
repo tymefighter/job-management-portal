@@ -1,0 +1,33 @@
+.job-edit-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.job-edit-form__img {
+    display: block;
+    margin: 0  auto;
+    width: 30rem;
+    height: 20rem;
+    grid-area: img;
+    border: 0.2rem solid black;
+    grid-row: 1;
+    grid-column: 1 / 3;
+}
+
+.job-edit-form__label {
+    font-size: 1.7rem;
+}
+
+.job-edit-form__input {
+    font-size: 1.3rem;
+}
+
+.job-edit-form__textarea {
+    font-size: 1.2rem;
+}
+
+.job-edit-form__submit-btn {
+    font-size: 2rem;
+    grid-column: 1 / 3;
+}
