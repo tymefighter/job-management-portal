@@ -15,36 +15,35 @@ function mapStateToProps(state: StateType) {
 }
 
 const mapDispatchToProps = {
-    editJob: thunk.editJob
+    addJob: thunk.addJob
 };
 
-interface JobEditProps {
+interface JobAddProps {
     company: types.Company;
-    job: types.Job;
-    editJob: (companyId: string, jobId: string, jobEdit: types.JobEdit) => void;
+    addJob: (companyId: string, job: types.JobWithoutId) => void;
 };
 
-function JobEdit({company, job, editJob}: JobEditProps) {
+function AddJob({company, addJob}: JobAddProps) {
 
-    const [nameInput, setNameInput] = useState(job.name);
-    const [salaryInput, setSalaryInput] = useState(job.salary);
-    const [locationInput, setLocationInput] = useState(job.location);
-    const [descInput, setDescInput] = useState(job.description);
+    const [nameInput, setNameInput] = useState("");
+    const [salaryInput, setSalaryInput] = useState("");
+    const [locationInput, setLocationInput] = useState("");
+    const [descInput, setDescInput] = useState("");
     const history = useHistory();
 
     function submitHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const jobEdit: types.JobEdit = {};
-        
-        if(nameInput !== job.name) jobEdit.name = nameInput;
-        if(salaryInput !== job.salary) jobEdit.salary = salaryInput;
-        if(locationInput !== job.location) jobEdit.location = locationInput;
-        if(descInput !== job.description) jobEdit.description = descInput;
+        const job: types.JobWithoutId = {
+            name: nameInput,
+            salary: parseInt(salaryInput),
+            location: locationInput,
+            description: descInput
+        };
 
-        editJob(company.id, job.id, jobEdit);
+        addJob(company.id, job);
 
-        history.push(`/companies/${company.id}/jobs/${job.id}`);
+        history.push(`/companies/${company.id}/jobs/`);
     }
 
     return (
@@ -63,7 +62,7 @@ function JobEdit({company, job, editJob}: JobEditProps) {
             <input className="job-edit-form__input"
                 type="number" name="salary" id="salary" 
                 value={salaryInput} 
-                onChange={(event) => setSalaryInput(parseInt(event.target.value))}
+                onChange={(event) => setSalaryInput(event.target.value)}
             />
 
             <label className="job-edit-form__label" htmlFor="location">Location</label>
@@ -86,32 +85,28 @@ function JobEdit({company, job, editJob}: JobEditProps) {
     );
 }
 
-interface JobEditWithHandlingProps {
+interface AddJobWithHandlingProps {
     status: LoadStatus;
     companies: types.Company[];
-    editJob: (companyId: string, jobId: string, jobEdit: types.JobEdit) => void;
+    addJob: (companyId: string, job: types.JobWithoutId) => void;
 };
 
 interface RouteParams {
     companyId: string;
-    jobId: string;
 };
 
-function JobEditWithHandling(
-    {status, companies, editJob}: JobEditWithHandlingProps
+function AddJobWithHandling(
+    {status, companies, addJob}: AddJobWithHandlingProps
 ) {
-    const { companyId, jobId } = useParams<RouteParams>();
+    const { companyId } = useParams<RouteParams>();
 
     if(status !== "LOADED") return <div>{status}</div>;
 
     const company = companies.find(company => company.id === companyId);
     if(company === undefined) return <div>Invalid Company</div>;
 
-    const job = company.jobs.find(job => job.id === jobId);
-    if(job === undefined) return <div>Invalid Job</div>;
-
-    return <JobEdit company={company} job={job} editJob={editJob} />;
+    return <AddJob company={company} addJob={addJob} />;
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobEditWithHandling);
+export default connect(mapStateToProps, mapDispatchToProps)(AddJobWithHandling);
