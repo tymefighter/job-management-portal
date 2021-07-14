@@ -11,8 +11,8 @@ let data = loadData;
 
 /** Helpers */
 
-function getCounter() {
-    let id = 0;
+function getCounter(initValue: number) {
+    let id = initValue;
 
     return function() {
         const currId = id;
@@ -21,8 +21,21 @@ function getCounter() {
     }
 }
 
-const computeCompanyId = getCounter();
-const computeJobId = getCounter();
+const max = (a: number, b: number) => (a > b ? a : b);
+
+const initCompanyId = data.reduce(
+    (prevMaxCompanyId: number, company) => max(prevMaxCompanyId, parseInt(company.id)), 0
+) + 1;
+const computeCompanyId = getCounter(initCompanyId);
+
+const initJobId = data.reduce((prevMaxJobId: number, company) => {
+    const maxCompanyJobId = company.jobs.reduce(
+        (prevMaxCompanyJobId: number, job) => max(prevMaxCompanyJobId, parseInt(job.id)), 0
+    );
+    
+    return max(prevMaxJobId, maxCompanyJobId);
+}, 0) + 1;
+const computeJobId = getCounter(initJobId);
 
 function writeDataToFile() {
     fs.writeFileSync(DATA_PATH, JSON.stringify(data), "utf-8");

@@ -20,7 +20,13 @@
                 "location": "Gurgaon"
             }
         ],
-        "comments": []
+        "comments": [
+            {
+                "id": "0",
+                "comment": "This is an amazing company to work at, they are building the technology of the future. CXM is a rapidly growing field, and Sprinklr is dominating it at this stage itself.",
+                "date": "10 June 2021"
+            }
+        ]
     },
     {
         "id": "1",
@@ -36,7 +42,18 @@
                 "location": "Trivandrum"
             }
         ],
-        "comments": []
+        "comments": [
+            {
+                "id": "1",
+                "comment": "In the Machine Learning area, UST global works on breakthrough research in industrial product areas. It is an amazing opportunity to work here. The office is huge and amazing, and free coffee !",
+                "date": "10 March 2018"
+            },
+            {
+                "id": "2",
+                "comment": "The office is just so cool, it has a swimming pool and a gym on the terrace. There are immersive client meetings, amazing restaurants in the ground floor. The work environment is also great.",
+                "date": "3 November 2019"
+            }
+        ]
     },
     {
         "id": "2",
