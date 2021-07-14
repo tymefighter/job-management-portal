@@ -25,7 +25,11 @@ export interface Company {
     comments: Comment[]
 };
 
-export type CompanyWithoutId = Omit<Company, "id">;
+export interface CompanyUser {
+    image: File;
+    name: string;
+    description: string;
+};
 
 export interface CompanyEdit {
     name?: string;
@@ -110,10 +114,6 @@ export function isCompanyList(companies: any): companies is Company[] {
         if(!isCompany(company)) return false;
     
     return true;
-}
-
-export function isCompanyWithoutId(company: any): company is Company {
-    return hasCompanyProps(company);
 }
 
 interface AllowedPropsCompanyEditType {

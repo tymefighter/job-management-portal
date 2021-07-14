@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { LoadStatus, StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useHistory, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import * as thunk from "../redux/thunk";
 import BreadCrumb from "../common/BreadCrumb";
 
@@ -10,8 +10,7 @@ import  "../styles/CompanyEditAndAdd.scss";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
-        companies: state.companies
+        status: state.companiesStatus
     };
 }
 
@@ -20,17 +19,29 @@ const mapDispatchToProps = {
 };
 
 interface AddCompanyProps {
-    addCompany: (company: types.CompanyWithoutId) => void;
+    addCompany: (company: types.CompanyUser) => void;
 };
 
 function AddCompany({addCompany}: AddCompanyProps) {
 
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [nameInput, setNameInput] = useState("");
     const [descInput, setDescInput] = useState("");
     const history = useHistory();
 
     function submitHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
+        if(!fileInputRef.current || !fileInputRef.current.files)
+            return;
+        
+        const company: types.CompanyUser = {
+            image: fileInputRef.current.files[0],
+            name: nameInput,
+            description: descInput
+        };
+
+        addCompany(company);
 
         history.push(`/companies/`);
     }
@@ -60,7 +71,8 @@ function AddCompany({addCompany}: AddCompanyProps) {
                 />
 
                 <label className="company-form__label" htmlFor="logo-img">Company Logo</label>
-                <input className="company-form__file" type="file" name="logo-img" id="logo-img" />
+                <input ref={fileInputRef}
+                    className="company-form__file" type="file" name="logo-img" id="logo-img" />
 
                 <button className="company-form__submit-btn"
                     type="submit">Submit</button>
@@ -71,12 +83,11 @@ function AddCompany({addCompany}: AddCompanyProps) {
 
 interface AddCompanyWithHandlingProps {
     status: LoadStatus;
-    companies: types.Company[];
-    addCompany: (company: types.CompanyWithoutId) => void;
+    addCompany: (company: types.CompanyUser) => void;
 };
 
 function AddCompanyWithHandling(
-    {status, companies, addCompany}: AddCompanyWithHandlingProps
+    {status, addCompany}: AddCompanyWithHandlingProps
 ) {
 
     if(status !== "LOADED") return <div>{status}</div>;

@@ -18,10 +18,19 @@ export async function fetchCompanies() {
     else return Promise.reject("company list does not have the correct type");
 }
 
-export async function addCompany(company: types.CompanyWithoutId) {
+export async function addCompany(company: types.CompanyUser) {
+
+    const formData = new FormData();
+
+    formData.append("name", company.name);
+    formData.append("description", company.description);
+    formData.append("image", company.image);
+
+    console.log(formData);
+
     const response = await fetch(baseUrl + "/companies", {
         method: "POST",
-        body: JSON.stringify(company)
+        body: formData
     });
 
     if(!response.ok) {

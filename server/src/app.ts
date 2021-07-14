@@ -2,6 +2,8 @@ import * as express from "express";
 import * as types from "./types";
 import * as data from "./data";
 import * as cors from "cors";
+import * as formidable from "formidable";
+import * as fs from "fs";
 
 const PORT = 3000;
 
@@ -24,19 +26,39 @@ app.route("/companies")
 })
 // add a new company
 .post((req, res) => { 
-    const companyWithoutId = req.body;
-    if(types.isCompanyWithoutId(companyWithoutId)) {
-        const company = data.addCompany(companyWithoutId);
-        res
-        .setHeader("content-type", "application/json")
-        .status(200)
-        .json(company);
-    }
-    else 
-        res
-        .setHeader("content-type", "text/plain")
-        .status(400)
-        .end("Invalid Request Data");
+    const form = formidable({ multiples: true });
+
+    form.parse(req, (err, fields: any, files: any) => {
+
+        if(
+            !err
+            && types.isCompanyUser(fields)
+            && typeof files?.image?.name === "string"
+            && typeof files?.image?.path === "string"
+        ) {
+            const fileName = files.image.name as string;
+            const filePath = files.image.path as string;
+
+            const imageData = fs.readFileSync(filePath);
+            fs.writeFile(`./server/public/images/${fileName}`, imageData, (err) => {
+                if(err) {
+                    res.status(400).end(err.message);
+                    return;
+                }
+
+                const company = data.addCompany(
+                    fields,
+                    `http://localhost:${PORT}/images/${fileName}`
+                );
+
+                res.status(200).json(company);
+            });
+        }
+        else {
+            res.status(400).end("Error in Request Data");
+            return;
+        }
+    });
 })
 
 /** Particular Company */

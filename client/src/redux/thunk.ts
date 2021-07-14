@@ -16,7 +16,7 @@ export function getCompanies() {
     }
 }
 
-export function addCompany(newCompany: types.CompanyWithoutId) {
+export function addCompany(newCompany: types.CompanyUser) {
     return (dispatch: DispatchType) => {
         dispatch({type: "ADD_COMPANY"});
 
