@@ -43,7 +43,7 @@ function AddJob({company, addJob}: JobAddProps) {
 
         addJob(company.id, job);
 
-        history.push(`/companies/${company.id}/jobs/`);
+        history.push(`/companies/${company.id}/jobs`);
     }
 
     return (

@@ -16,13 +16,11 @@ export interface StateType {
     companies: types.Company[];
     companiesStatus: LoadStatus;
     failedOperationStatus?: FailedOperationStatus;
-    theme: Theme;
 };
 
 const initialState: StateType = {
     companies: [],
-    companiesStatus: "NOT_LOADED",
-    theme: "DARK"
+    companiesStatus: "NOT_LOADED"
 };
 
 function logReducerInfo(actionType: ActionType, info: string) {

@@ -43,7 +43,7 @@ function AddCompany({addCompany}: AddCompanyProps) {
 
         addCompany(company);
 
-        history.push(`/companies/`);
+        history.push(`/companies`);
     }
 
     return (
