@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import FixedButton from "../FixedButton";
 
-test("Test Fixed Button with additional classes", () => {
+test("Test Fixed Button", () => {
     const randomButtonText = "112asdlfna;ksdjfASDFLK";
     const ariaLabel = "iouasydifhahselraASDF";
     const onClick = jest.fn();
