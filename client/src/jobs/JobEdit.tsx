@@ -102,7 +102,8 @@ function JobEdit({company, job, editJob, deleteJob}: JobEditProps) {
                 <button className="job-edit-form__submit-btn"
                     type="submit">Submit</button>
                     
-                <FixedButton onClick={deleteHandler}>&#128465;</FixedButton>
+                <FixedButton aria-label="Delete Job Button"
+                    onClick={deleteHandler}>&#128465;</FixedButton>
             </form>
         </>
     );

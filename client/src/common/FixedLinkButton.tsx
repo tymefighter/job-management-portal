@@ -4,12 +4,13 @@ import "../styles/FixedLinkButton.scss";
 
 interface FixedLinkButtonProps {
     to: string;
+    "aria-label": string;
     children: string;
 };
 
-function FixedLinkButton({to, children}: FixedLinkButtonProps) {
+function FixedLinkButton({to, children, ...props}: FixedLinkButtonProps) {
     return (
-        <Link className="fixed-link-button" to={to}>
+        <Link aria-label={props["aria-label"]} className="fixed-link-button" to={to}>
             {children}
         </Link>
     )

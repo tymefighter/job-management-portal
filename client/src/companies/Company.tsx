@@ -51,7 +51,8 @@ function Company({companies}: CompanyProps) {
                     <Link className="company__link" to={`${url}/comments`}>Comments</Link>
                 </div>
 
-                <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
+                <FixedLinkButton aria-label="Edit Company Link"
+                    to={`${url}/edit`}>&#9998;</FixedLinkButton>
             </div>
         </>
     );

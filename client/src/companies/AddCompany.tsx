@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { LoadStatus, StateType } from "../redux/reducer";
 import * as types from "../types";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState, useRef } from "react";
 import * as thunk from "../redux/thunk";
 import BreadCrumb from "../common/BreadCrumb";

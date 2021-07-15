@@ -6,9 +6,9 @@ import { useState } from "react";
 import * as thunk from "../redux/thunk";
 import FixedButton from "../common/FixedButton";
 import BreadCrumb from "../common/BreadCrumb";
+import ErrorComponent from "../common/ErrorComponent";
 
 import  "../styles/CompanyEditAndAdd.scss";
-import ErrorComponent from "../common/ErrorComponent";
 
 function mapStateToProps(state: StateType) {
     return {
@@ -81,7 +81,8 @@ function CompanyEdit({company, editCompany, deleteCompany}: CompanyEditProps) {
                 <button className="company-form__submit-btn"
                     type="submit">Submit</button>
 
-                <FixedButton onClick={deleteHandler}>&#128465;</FixedButton>
+                <FixedButton aria-label="Delete Company Button"
+                    onClick={deleteHandler}>&#128465;</FixedButton>
             </form>
         </>
     );

@@ -50,7 +50,8 @@ function CompanyComments({companies}: CompanyProps) {
                         </div>
                     );
                 })}
-                <FixedLinkButton to={`${url}/add-comment`}>+</FixedLinkButton>
+                <FixedLinkButton aria-label="Add Comment Link"
+                    to={`${url}/add-comment`}>+</FixedLinkButton>
             </div>
         </>
     );
