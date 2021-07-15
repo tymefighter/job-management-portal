@@ -12,8 +12,8 @@ function Nav() {
             const linkArr = navRef.current.querySelectorAll(".nav__link");
             linkArr.forEach(link => {
                 (link as HTMLAnchorElement).style.display = 
-                    (link as HTMLAnchorElement).style.display === "block" ? 
-                        "none" : "block";
+                    (link as HTMLAnchorElement).style.display === "none" ? 
+                        "block" : "none";
             });
         }
     }
