@@ -11,16 +11,18 @@ function Nav() {
         if(navRef.current) {
             const linkArr = navRef.current.querySelectorAll(".nav__link");
             linkArr.forEach(link => {
+
                 (link as HTMLAnchorElement).style.display = 
-                    (link as HTMLAnchorElement).style.display === "block" ? 
-                        "none" : "block";
+                    (link as HTMLAnchorElement).style.display === "none" ? 
+                        "block" : "none";
             });
         }
     }
 
     return (
         <nav ref={navRef} className="nav">
-            <button onClick={navButtonMobileClickHandler}
+            <button onClick={navButtonMobileClickHandler} 
+                aria-label="Navbar Toggle Button for Small Devices"
                 className="nav__toggle-button-mobile">&#9776;</button>
             <Link className="nav__link" to="/">Home</Link>
             <Link className="nav__link" to="/companies">Company</Link>
