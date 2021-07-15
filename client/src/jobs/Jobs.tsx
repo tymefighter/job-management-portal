@@ -1,37 +1,49 @@
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
+import { FailedOperationStatus, LoadStatus, StateType } from "../redux/reducer";
 import * as types from "../types";
 import * as thunk from "../redux/thunk";
+import * as actionCreator from "../redux/actionCreator";
 import { Link } from "react-router-dom";
 import JobItem from "./JobItem";
 import { useEffect } from "react";
+import { loadRenderHelper, useOperationFailed } from "../operationHelper";
 
 import  "../styles/CompanyJobs.scss";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
+        companiesStatus: state.companiesStatus,
+        failedOperationStatus: state.failedOperationStatus,
         companies: state.companies
     };
 }
 
 const mapDispatchToProps = {
-    getCompanies: thunk.getCompanies
+    getCompanies: thunk.getCompanies,
+    clearFailedStatus: actionCreator.clearFailedStatus
 };
 
 interface CompanyProps {
-    status: LoadStatus;
+    companiesStatus: LoadStatus;
+    failedOperationStatus: FailedOperationStatus | undefined;
     companies: types.Company[];
-    getCompanies: () => void
-}
+    getCompanies: () => void;
+    clearFailedStatus: () => void;
+};
 
-function Jobs({status, companies, getCompanies}: CompanyProps) {
+function Jobs({
+    companiesStatus, failedOperationStatus, companies, 
+    getCompanies, clearFailedStatus
+}: CompanyProps) {
 
     useEffect(() => {
-        if(status === "NOT_LOADED") getCompanies();
-    }, [status]);
+        if(companiesStatus === "NOT_LOADED") getCompanies();
+    }, [companiesStatus]);
 
-    if(status !== "LOADED") return <div>{status}</div>;
+    useOperationFailed(companiesStatus, failedOperationStatus, clearFailedStatus);
+    
+    const loadRenderOutput = loadRenderHelper(companiesStatus, failedOperationStatus);
+    if(loadRenderOutput) return loadRenderOutput;
 
     return (
         <div className="company-jobs">

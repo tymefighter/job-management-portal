@@ -112,16 +112,28 @@ export function deleteJobPassed(
     };
 }
 
-type ActionWithPayload = GetCompaniesPassed 
+interface ClearFailedStatus {
+    type: "CLEAR_FAILED_STATUS";
+}
+
+export function clearFailedStatus(): ClearFailedStatus {
+    return {
+        type: "CLEAR_FAILED_STATUS"
+    };
+}
+
+type ActionWithFunction = GetCompaniesPassed 
     | AddCompanyPassed
     | EditCompanyPassed
     | DeleteCompanyPassed
     | AddJobPassed
     | EditJobPassed
-    | DeleteJobPassed;
+    | DeleteJobPassed
+    | ClearFailedStatus;
  
-interface ActionWithoutPayload {
-    type: Exclude<ActionType, ActionWithPayload["type"]>
+interface ActionWithoutFunction {
+    type: Exclude<ActionType, ActionWithFunction["type"]>;
+    payload: string;
 };
 
-export type Action = ActionWithPayload | ActionWithoutPayload;
+export type Action = ActionWithFunction | ActionWithoutFunction;

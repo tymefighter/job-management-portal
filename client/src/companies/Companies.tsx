@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
+import { LoadStatus, FailedOperationStatus, StateType } from "../redux/reducer";
 import * as thunk from "../redux/thunk";
+import * as actionCreator from "../redux/actionCreator";
 import * as types from "../types";
 
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
@@ -15,25 +16,30 @@ import CompanyEdit from "./CompanyEdit";
 import JobEdit from "../jobs/JobEdit";
 import AddJob from "../jobs/AddJob";
 import AddCompany from "./AddCompany";
+import { loadRenderHelper, useOperationFailed } from "../operationHelper";
 
 import  "../styles/Companies.scss";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
+        companiesStatus: state.companiesStatus,
+        failedOperationStatus: state.failedOperationStatus,
         companies: state.companies
     };
 }
 
 const mapDispatchToProps = {
-    getCompanies: thunk.getCompanies
+    getCompanies: thunk.getCompanies,
+    clearFailedStatus: actionCreator.clearFailedStatus
 };
 
 interface CompaniesProps {
-    status: LoadStatus;
+    companiesStatus: LoadStatus;
+    failedOperationStatus: FailedOperationStatus | undefined;
     companies: types.Company[];
-    getCompanies: () => void
-}
+    getCompanies: () => void;
+    clearFailedStatus: () => void;
+};
 
 function RenderCompanies({companies}: {companies: types.Company[]}) {
     const { url } = useRouteMatch();
@@ -56,15 +62,21 @@ function RenderCompanies({companies}: {companies: types.Company[]}) {
     );
 }
 
-function Companies({status, companies, getCompanies}: CompaniesProps) {
+function Companies({
+    companiesStatus, failedOperationStatus, companies, 
+    getCompanies, clearFailedStatus
+}: CompaniesProps) {
 
     const { path } = useRouteMatch();
 
     useEffect(() => {
-        if(status === "NOT_LOADED") getCompanies();
-    }, [status]);
+        if(companiesStatus === "NOT_LOADED") getCompanies();
+    }, [companiesStatus]);
 
-    if(status !== "LOADED") return <div>{status}</div>;
+    useOperationFailed(companiesStatus, failedOperationStatus, clearFailedStatus);
+
+    const loadRenderOutput = loadRenderHelper(companiesStatus, failedOperationStatus);
+    if(loadRenderOutput) return loadRenderOutput;
 
     return (
         <Switch>

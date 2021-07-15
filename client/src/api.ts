@@ -1,6 +1,6 @@
 import * as types from "./types";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:5000";
 
 export async function fetchCompanies() {
     const response = await fetch(baseUrl + "/companies", {
@@ -9,13 +9,17 @@ export async function fetchCompanies() {
 
     if(!response.ok) {
         const text = await response.text()
-        return Promise.reject(text);
+        return Promise.reject(
+            `Error - Status Code: ${response.status}, Message: ${text}`
+        );
     }
 
     const companies = await response.json();
 
     if(types.isCompanyList(companies)) return companies;
-    else return Promise.reject("company list does not have the correct type");
+    else return Promise.reject(
+        "Company List received from server does not have the correct type structure"
+    );
 }
 
 export async function addCompany(company: types.CompanyUser) {
@@ -26,8 +30,6 @@ export async function addCompany(company: types.CompanyUser) {
     formData.append("description", company.description);
     formData.append("image", company.image);
 
-    console.log(formData);
-
     const response = await fetch(baseUrl + "/companies", {
         method: "POST",
         body: formData
@@ -35,13 +37,17 @@ export async function addCompany(company: types.CompanyUser) {
 
     if(!response.ok) {
         const text = await response.text()
-        return Promise.reject(text);
+        return Promise.reject(
+            `Error - Status Code: ${response.status}, Message: ${text}`
+        );
     }
 
     const companyReceived = await response.json();
 
     if(types.isCompany(companyReceived)) return companyReceived;
-    else return Promise.reject("company does not have the correct type");
+    else return Promise.reject(
+        "Company received from server does not have the correct type structure"
+    );
 }
 
 export async function fetchCompany(companyId: string) {
@@ -51,13 +57,17 @@ export async function fetchCompany(companyId: string) {
 
     if(!response.ok) {
         const text = await response.text();
-        return Promise.reject(text);
+        return Promise.reject(
+            `Error - Status Code: ${response.status}, Message: ${text}`
+        );
     }
 
     const company = await response.json();
 
     if(types.isCompany(company)) return company;
-    else return Promise.reject("company does not have the correct type");
+    else return Promise.reject(
+        "Company received from server does not have the correct type structure"
+    );
 }
 
 export async function editCompany(
@@ -73,7 +83,10 @@ export async function editCompany(
 
     const text = await response.text()
 
-    if(!response.ok) return Promise.reject(text);
+    if(!response.ok) return Promise.reject(
+        `Error - Status Code: ${response.status}, Message: ${text}`
+    );
+
     else return text;
 }
 
@@ -84,7 +97,10 @@ export async function deleteCompany(companyId: string) {
 
     const text = await response.text()
 
-    if(!response.ok) return Promise.reject(text);
+    if(!response.ok) return Promise.reject(
+        `Error - Status Code: ${response.status}, Message: ${text}`
+    );
+
     else return text;
 }
 
@@ -95,13 +111,17 @@ export async function fetchJobs(companyId: string) {
 
     if(!response.ok) {
         const text = await response.text();
-        return Promise.reject(text);
+        return Promise.reject(
+            `Error - Status Code: ${response.status}, Message: ${text}`
+        );
     }
 
     const jobList = await response.json();
 
     if(types.isJobList(jobList)) return jobList;
-    else return Promise.reject("job list does not have the correct type");
+    else return Promise.reject(
+        "Job List received from server does not have the correct type structure"
+    );
 }
 
 export async function addJob(companyId: string, job: types.JobWithoutId) {
@@ -115,13 +135,17 @@ export async function addJob(companyId: string, job: types.JobWithoutId) {
 
     if(!response.ok) {
         const text = await response.text()
-        return Promise.reject(text);
+        return Promise.reject(
+            `Error - Status Code: ${response.status}, Message: ${text}`
+        );
     }
 
     const jobReceived = await response.json();
 
     if(types.isJob(jobReceived)) return jobReceived;
-    else return Promise.reject("job does not have the correct type");
+    else return Promise.reject(
+        "Job received from server does not have the correct type structure"
+    );
 }
 
 export async function fetchJob(
@@ -133,13 +157,17 @@ export async function fetchJob(
 
     if(!response.ok) {
         const text = await response.text();
-        return Promise.reject(text);
+        return Promise.reject(
+            `Error - Status Code: ${response.status}, Message: ${text}`
+        );
     }
 
     const job = await response.json();
 
     if(types.isJob(job)) return job;
-    else return Promise.reject("job does not have the correct type");
+    else return Promise.reject(
+        "Job received from server does not have the correct type structure"
+    );
 }
 
 export async function editJob(
@@ -155,7 +183,10 @@ export async function editJob(
 
     const text = await response.text()
 
-    if(!response.ok) return Promise.reject(text);
+    if(!response.ok) return Promise.reject(
+        `Error - Status Code: ${response.status}, Message: ${text}`
+    );
+
     else return text;
 }
 
@@ -168,6 +199,9 @@ export async function deleteJob(
 
     const text = await response.text()
 
-    if(!response.ok) return Promise.reject(text);
+    if(!response.ok) Promise.reject(
+        `Error - Status Code: ${response.status}, Message: ${text}`
+    );
+
     else return text;
 }

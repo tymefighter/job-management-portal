@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
+import { StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useParams, useRouteMatch } from "react-router-dom";
 import FixedLinkButton from "../common/FixedLinkButton";
@@ -9,13 +9,11 @@ import  "../styles/CompanyComments.scss";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
         companies: state.companies
     };
 }
 
 interface CompanyProps {
-    status: LoadStatus;
     companies: types.Company[];
 }
 
@@ -24,12 +22,10 @@ interface RouteParams {
     url: string;
 };
 
-function CompanyComments({status, companies}: CompanyProps) {
+function CompanyComments({companies}: CompanyProps) {
 
     const { url } = useRouteMatch();
     const { companyId } = useParams<RouteParams>();
-
-    if(status !== "LOADED") return <div>{status}</div>;
 
     const company = companies.find(company => company.id === companyId);
     if(company === undefined) return <div>Invalid Company</div>
