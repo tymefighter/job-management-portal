@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
+import { StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
@@ -10,7 +10,6 @@ import  "../styles/JobEditAndAdd.scss";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
         companies: state.companies
     };
 }
@@ -97,7 +96,6 @@ function AddJob({company, addJob}: JobAddProps) {
 }
 
 interface AddJobWithHandlingProps {
-    status: LoadStatus;
     companies: types.Company[];
     addJob: (companyId: string, job: types.JobWithoutId) => void;
 };
@@ -107,11 +105,9 @@ interface RouteParams {
 };
 
 function AddJobWithHandling(
-    {status, companies, addJob}: AddJobWithHandlingProps
+    {companies, addJob}: AddJobWithHandlingProps
 ) {
     const { companyId } = useParams<RouteParams>();
-
-    if(status !== "LOADED") return <div>{status}</div>;
 
     const company = companies.find(company => company.id === companyId);
     if(company === undefined) return <div>Invalid Company</div>;

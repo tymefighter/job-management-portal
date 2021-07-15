@@ -1,17 +1,17 @@
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
+import { StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 import * as thunk from "../redux/thunk";
-
-import  "../styles/JobEditAndAdd.scss";
 import FixedButton from "../common/FixedButton";
 import BreadCrumb from "../common/BreadCrumb";
+import ErrorComponent from "../common/ErrorComponent";
+
+import  "../styles/JobEditAndAdd.scss";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
         companies: state.companies
     };
 }
@@ -109,7 +109,6 @@ function JobEdit({company, job, editJob, deleteJob}: JobEditProps) {
 }
 
 interface JobEditWithHandlingProps {
-    status: LoadStatus;
     companies: types.Company[];
     editJob: (companyId: string, jobId: string, jobEdit: types.JobEdit) => void;
     deleteJob: (companyId: string, jobId: string) => void;
@@ -121,17 +120,15 @@ interface RouteParams {
 };
 
 function JobEditWithHandling(
-    {status, companies, editJob, deleteJob}: JobEditWithHandlingProps
+    {companies, editJob, deleteJob}: JobEditWithHandlingProps
 ) {
     const { companyId, jobId } = useParams<RouteParams>();
 
-    if(status !== "LOADED") return <div>{status}</div>;
-
     const company = companies.find(company => company.id === companyId);
-    if(company === undefined) return <div>Invalid Company</div>;
+    if(company === undefined) return <ErrorComponent message="Invalid Company ID" />;
 
     const job = company.jobs.find(job => job.id === jobId);
-    if(job === undefined) return <div>Invalid Job</div>;
+    if(job === undefined) return <ErrorComponent message="Invalid Job ID" />;
 
     return <JobEdit company={company} job={job} 
         editJob={editJob} deleteJob={deleteJob} />;

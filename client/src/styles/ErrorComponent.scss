@@ -1,0 +1,16 @@
+.error-component {
+    background-color: rgb(255, 218, 218);
+    color: red;
+    padding: 2rem;
+}
+
+.error-component__heading {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.error-component__message {
+    font-size: 1.4rem;
+    margin: 0 auto;
+    width: fit-content;
+}

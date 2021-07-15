@@ -1,22 +1,21 @@
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
+import { StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useParams, useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import FixedLinkButton from "../common/FixedLinkButton";
 import BreadCrumb from "../common/BreadCrumb";
+import ErrorComponent from "../common/ErrorComponent";
 
 import  "../styles/Company.scss";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
         companies: state.companies
     };
 }
 
 interface CompanyProps {
-    status: LoadStatus;
     companies: types.Company[];
 }
 
@@ -24,15 +23,13 @@ interface RouteParams {
     companyId: string;
 };
 
-function Company({status, companies}: CompanyProps) {
+function Company({companies}: CompanyProps) {
 
     const {url} = useRouteMatch();
     const { companyId } = useParams<RouteParams>();
 
-    if(status !== "LOADED") return <div>{status}</div>;
-
     const company = companies.find(company => company.id === companyId);
-    if(company === undefined) return <div>Invalid Company</div>;
+    if(company === undefined) return <ErrorComponent message="Invalid Company ID" />;
 
     return (
         <>

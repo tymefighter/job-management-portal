@@ -5,7 +5,7 @@ import * as cors from "cors";
 import * as formidable from "formidable";
 import * as fs from "fs";
 
-const PORT = 3000;
+const PORT = 5000;
 
 // Get Express Application
 const app = express();
@@ -22,7 +22,8 @@ app.use(cors());
 app.route("/companies")
 // get the list of companies
 .get((req, res) => { 
-    res.status(200).json(data.getCompanies());
+    setTimeout(() => res.status(200).json(data.getCompanies()), 2500);
+    // res.status(200).json(data.getCompanies());
 })
 // add a new company
 .post((req, res) => { 

@@ -1,7 +1,7 @@
 [
     {
         "id": "1",
-        "imgUrl": "http://localhost:3000/images/sprinklr.jpeg",
+        "imgUrl": "http://localhost:5000/images/sprinklr.jpeg",
         "name": "Sprinklr",
         "description": "Sprinklr is an American software company based in New York City that develops a SaaS customer experience management (CXM) platform. he company's software, also called Sprinklr, combines different applications for social media marketing, social advertising, content management, collaboration, employee advocacy, customer care, social media research, and social media monitoring.",
         "jobs": [
@@ -30,7 +30,7 @@
     },
     {
         "id": "2",
-        "imgUrl": "http://localhost:3000/images/ust-global.jpeg",
+        "imgUrl": "http://localhost:5000/images/ust-global.jpeg",
         "name": "UST Global",
         "description": "UST is a global provider of digital technology and transformation, IT services and solutions, headquartered in Aliso Viejo, California, United States. Stephen Ross founded UST in 1998 in Laguna Hills. The company has offices in the Americas, EMEA, APAC, and India. UST specializes in financial services, retail & CPG, manufacturing, technology, media and telecom, semiconductor, and the public sector.",
         "jobs": [
@@ -57,7 +57,7 @@
     },
     {
         "id": "3",
-        "imgUrl": "http://localhost:3000/images/composewell-technologies.png",
+        "imgUrl": "http://localhost:5000/images/composewell-technologies.png",
         "name": "Composewell Technologies",
         "description": "Build high-performance, reliable and modular software with Haskell and Streamly. Build reliable and high-performance systems from modular building blocks using dataflow programming and declarative concurrency.",
         "jobs": [
@@ -73,7 +73,7 @@
     },
     {
         "id": "4",
-        "imgUrl": "http://localhost:3000/images/lyearn.jpeg",
+        "imgUrl": "http://localhost:5000/images/lyearn.jpeg",
         "name": "Lyearn",
         "description": "Lyearn is a learning management system which empowers organisations to deliver a deeply engaging experience to their learners where they are, anytime, anywhere.",
         "jobs": [

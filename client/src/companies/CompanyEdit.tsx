@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
+import { StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
@@ -8,10 +8,10 @@ import FixedButton from "../common/FixedButton";
 import BreadCrumb from "../common/BreadCrumb";
 
 import  "../styles/CompanyEditAndAdd.scss";
+import ErrorComponent from "../common/ErrorComponent";
 
 function mapStateToProps(state: StateType) {
     return {
-        status: state.companiesStatus,
         companies: state.companies
     };
 }
@@ -88,7 +88,6 @@ function CompanyEdit({company, editCompany, deleteCompany}: CompanyEditProps) {
 }
 
 interface CompanyEditWithHandlingProps {
-    status: LoadStatus;
     companies: types.Company[];
     editCompany: (companyId: string, companyEdit: types.CompanyEdit) => void;
     deleteCompany: (companyId: string) => void;
@@ -99,14 +98,12 @@ interface RouteParams {
 };
 
 function CompanyEditWithHandling(
-    {status, companies, editCompany, deleteCompany}: CompanyEditWithHandlingProps
+    {companies, editCompany, deleteCompany}: CompanyEditWithHandlingProps
 ) {
     const { companyId } = useParams<RouteParams>();
 
-    if(status !== "LOADED") return <div>{status}</div>;
-
     const company = companies.find(company => company.id === companyId);
-    if(company === undefined) return <div>Invalid Company</div>;
+    if(company === undefined) return <ErrorComponent message="Invalid Company ID" />;
 
     return <CompanyEdit company={company} 
         editCompany={editCompany} deleteCompany={deleteCompany} />;
