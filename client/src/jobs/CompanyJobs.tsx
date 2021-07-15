@@ -46,7 +46,9 @@ function CompanyJobs({companies}: CompanyProps) {
                 {company.jobs.map(job => {
                     return (
                         <Link key={job.id}
-                            className="job-item-link" to={`${url}/${job.id}`}>
+                            className="job-item-link" to={`${url}/${job.id}`}
+                            aria-label={`Link to Job ${job.name}`}
+                        >
                             <JobItem 
                                 companyName={company.name}
                                 jobName={job.name}
@@ -55,7 +57,8 @@ function CompanyJobs({companies}: CompanyProps) {
                         </Link>
                     )
                 })}
-                <FixedLinkButton to={`${url}/add-job`}>+</FixedLinkButton>
+                <FixedLinkButton to={`${url}/add-job`}
+                    aria-label="Add Job Link">+</FixedLinkButton>
             </div>
         </>
     );

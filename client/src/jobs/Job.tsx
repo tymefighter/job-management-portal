@@ -54,7 +54,8 @@ function Job({companies}: CompanyProps) {
                     {job.description}
                 </p>
 
-                <FixedLinkButton to={`${url}/edit`}>&#9998;</FixedLinkButton>
+                <FixedLinkButton aria-label="Edit Job Link"
+                    to={`${url}/edit`}>&#9998;</FixedLinkButton>
             </div>
         </>
     );

@@ -58,7 +58,8 @@ function RenderCompanies({companies}: {companies: types.Company[]}) {
                     </Link>
                 )
             })}
-            <FixedLinkButton to={`${url}/add-company`}>+</FixedLinkButton>
+            <FixedLinkButton aria-label="Add Company Link"
+                to={`${url}/add-company`}>+</FixedLinkButton>
         </div>
     );
 }

@@ -52,8 +52,10 @@ function Jobs({
         <div className="company-jobs">
             {companies.flatMap(company => company.jobs.map(job => {
                 return (
-                    <Link key={`${company.id}-${job.id}`}
-                        className="job-item-link" to={`/companies/${company.id}/jobs/${job.id}`}>
+                    <Link key={`${company.id}-${job.id}`} 
+                        aria-label={`Link to Job ${job.name} of ${company.name}`}
+                        className="job-item-link" to={`/companies/${company.id}/jobs/${job.id}`}
+                    >
                         <JobItem 
                             companyName={company.name}
                             jobName={job.name}
