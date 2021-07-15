@@ -1,9 +1,13 @@
 import HomeItem from "./HomeItem";
+import { useTitle } from "../common/hooks";
 
 import "../styles/Home.scss";
 import "../styles/HomeItem.scss";
 
 function Home() {
+
+    useTitle("Home");
+
     return (
         <div className="home">
             <HomeItem

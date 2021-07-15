@@ -1,6 +1,10 @@
+import { useTitle } from "../common/hooks";
+
 import "../styles/Information.scss";
 
 function Information() {
+    useTitle("Information");
+
     return (
         <div className="information">
             <h1 className="information__heading">Information</h1>

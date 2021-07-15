@@ -17,6 +17,7 @@ import JobEdit from "../jobs/JobEdit";
 import AddJob from "../jobs/AddJob";
 import AddCompany from "./AddCompany";
 import { loadRenderHelper, useOperationFailed } from "../operationHelper";
+import { useTitle } from "../common/hooks";
 
 import  "../styles/Companies.scss";
 
@@ -48,7 +49,7 @@ function RenderCompanies({companies}: {companies: types.Company[]}) {
         <div className="companies">
             {companies.map(company => {
                 return (
-                    <Link className="companies__link"
+                    <Link className="companies__link" aria-label={`Link to ${company.name}`}
                         key={company.id} to={`/companies/${company.id}`}>
                         <CompanyCard       
                             name={company.name} imgUrl={company.imgUrl}
@@ -68,6 +69,8 @@ function Companies({
 }: CompaniesProps) {
 
     const { path } = useRouteMatch();
+
+    useTitle("Companies");
 
     useEffect(() => {
         if(companiesStatus === "NOT_LOADED") getCompanies();

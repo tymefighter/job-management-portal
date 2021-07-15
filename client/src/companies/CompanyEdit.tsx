@@ -6,9 +6,9 @@ import { useState } from "react";
 import * as thunk from "../redux/thunk";
 import FixedButton from "../common/FixedButton";
 import BreadCrumb from "../common/BreadCrumb";
+import ErrorComponent from "../common/ErrorComponent";
 
 import  "../styles/CompanyEditAndAdd.scss";
-import ErrorComponent from "../common/ErrorComponent";
 
 function mapStateToProps(state: StateType) {
     return {

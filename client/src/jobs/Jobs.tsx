@@ -6,6 +6,7 @@ import * as actionCreator from "../redux/actionCreator";
 import { Link } from "react-router-dom";
 import JobItem from "./JobItem";
 import { useEffect } from "react";
+import { useTitle } from "../common/hooks";
 import { loadRenderHelper, useOperationFailed } from "../operationHelper";
 
 import  "../styles/CompanyJobs.scss";
@@ -35,6 +36,8 @@ function Jobs({
     companiesStatus, failedOperationStatus, companies, 
     getCompanies, clearFailedStatus
 }: CompanyProps) {
+
+    useTitle("All Jobs");
 
     useEffect(() => {
         if(companiesStatus === "NOT_LOADED") getCompanies();
