@@ -11,6 +11,7 @@ function Nav() {
         if(navRef.current) {
             const linkArr = navRef.current.querySelectorAll(".nav__link");
             linkArr.forEach(link => {
+
                 (link as HTMLAnchorElement).style.display = 
                     (link as HTMLAnchorElement).style.display === "none" ? 
                         "block" : "none";
