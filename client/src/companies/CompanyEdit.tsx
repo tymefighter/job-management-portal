@@ -43,12 +43,12 @@ function CompanyEdit({company, editCompany, deleteCompany}: CompanyEditProps) {
 
         editCompany(company.id, companyEdit);
 
-        history.push(`/companies/${company.id}`);
+        history.push(`/companies`);
     }
 
     function deleteHandler() {
         deleteCompany(company.id);
-        history.replace(`/companies/`);
+        history.replace(`/companies`);
     }
 
     return (
