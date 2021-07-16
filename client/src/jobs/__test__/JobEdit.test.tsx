@@ -7,7 +7,7 @@ import { mockCompanies } from "./mockJobsTestData";
 import * as types from "../../types";
 import { DispatchType } from "../../redux/thunk";
 import { Action } from "../../redux/actionCreator";
-import { editInnerElement } from "../../redux/dataHelper";
+import { deleteInnerElement, editInnerElement } from "../../redux/dataHelper";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -134,13 +134,136 @@ test("test editing job information", () => {
 
 test("test deleting a job", () => {
 
+    const initialState: StateType = {
+        companies: mockCompanies,
+        companiesStatus: "LOADED"
+    };
+    const store = createStore((
+        state: StateType = initialState, 
+        action: Action
+    ) => {
+        if(action.type === "DELETE_JOB_PASSED")
+            return  {
+                ...state,
+                companies: deleteInnerElement(
+                    state.companies,
+                    action.payload.companyId,
+                    "jobs",
+                    action.payload.jobId
+                )
+            };
 
+        else return state;
+    }, applyMiddleware(thunk));
+
+    const companyId = "0";
+    const jobId = "0";
+    const job = mockCompanies
+        .find(company => company.id === companyId)
+        .jobs
+        .find(job => job.id === jobId);
+
+    const element = (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/companies/:companyId/jobs/:jobId/edit">
+                        <JobEdit />
+                    </Route>
+                </Switch>
+                <Link to={`/companies/${companyId}/jobs/${jobId}/edit`}>
+                    Job Edit Link
+                </Link>
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const {getByText, getByLabelText} = render(element);
+
+    getByText("Job Edit Link").click();
+
+    const jobsBefore = store
+        .getState()
+        .companies
+        .find(company => company.id === companyId)
+        .jobs;
+    expect(jobsBefore).toContainEqual(job);
+
+    getByLabelText("Delete Job Button").click();
+    const jobsAfter = store
+        .getState()
+        .companies
+        .find(company => company.id === companyId)
+        .jobs;
+    expect(jobsAfter).not.toContainEqual(job);
 });
 
 test("test with wrong company id", () => {
+    const initialState: StateType = {
+        companies: mockCompanies,
+        companiesStatus: "LOADED"
+    };
+    const store = createStore((
+        state: StateType = initialState, 
+        action: Action
+    ) => state);
 
+    const companyId = "8192384";
+    const jobId = "0";
+
+    const element = (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/companies/:companyId/jobs/:jobId/edit">
+                        <JobEdit />
+                    </Route>
+                </Switch>
+                <Link to={`/companies/${companyId}/jobs/${jobId}/edit`}>
+                    Job Edit Link
+                </Link>
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const {container, getByText} = render(element);
+    getByText("Job Edit Link").click();
+
+    expect(container.textContent).toMatch(/error/i);
+    expect(container.textContent).toMatch(/invalid company id/i);
 });
 
 test("test with wrong job id", () => {
+    const initialState: StateType = {
+        companies: mockCompanies,
+        companiesStatus: "LOADED"
+    };
+    const store = createStore((
+        state: StateType = initialState, 
+        action: Action
+    ) => state);
 
+    const companyId = "0";
+    const jobId = "91923910";
+
+    const element = (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/companies/:companyId/jobs/:jobId/edit">
+                        <JobEdit />
+                    </Route>
+                </Switch>
+                <Link to={`/companies/${companyId}/jobs/${jobId}/edit`}>
+                    Job Edit Link
+                </Link>
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const {container, getByText} = render(element);
+    getByText("Job Edit Link").click();
+
+    expect(container.textContent).toMatch(/error/i);
+    expect(container.textContent).toMatch(/invalid job id/i);
 });
