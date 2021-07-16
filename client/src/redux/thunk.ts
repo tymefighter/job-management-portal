@@ -2,7 +2,7 @@ import * as actionCreator from "./actionCreator";
 import * as api from "../api";
 import * as types from "../types";
 
-type DispatchType = (action: actionCreator.Action) => void;
+export type DispatchType = (action: actionCreator.Action) => void;
 
 export function getCompanies() {
     return (dispatch: DispatchType) => {
