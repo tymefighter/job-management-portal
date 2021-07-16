@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home snapshot test: Home Component Snapshot 1`] = `
+<div
+  class="home"
+>
+  <div
+    class="home-item"
+  >
+    <img
+      alt="Job Management"
+      class="home-item__image"
+      src="images/job-management.jpg"
+    />
+    <h2
+      class="home-item__name"
+    >
+      Job Management
+    </h2>
+    <p
+      class="home-item__desc"
+    >
+      Manage all your jobs at one place with our Job Management Application. This application allows you to add, delete and edit companies and jobs as you like, while providing you with an amazing user experience.
+    </p>
+  </div>
+  <div
+    class="home-item home-item--alternate"
+  >
+    <img
+      alt="Manage Many Jobs "
+      class="home-item__image"
+      src="images/multiple-jobs.jpeg"
+    />
+    <h2
+      class="home-item__name"
+    >
+      Manage Many Jobs 
+    </h2>
+    <p
+      class="home-item__desc"
+    >
+      This application allows you to keep information about many jobs secure at one place. This helps you to view all relevant information at your convenience. This helps you improve upon your job archive and hence your ability to pursue them.
+    </p>
+  </div>
+  <div
+    class="home-item"
+  >
+    <img
+      alt="Manage Many Companies"
+      class="home-item__image"
+      src="images/multiple-companies.jpeg"
+    />
+    <h2
+      class="home-item__name"
+    >
+      Manage Many Companies
+    </h2>
+    <p
+      class="home-item__desc"
+    >
+      Manage all the companies and their job posting at this one place. This helps you optimize your information retrieval and storage, and hence helps you focus on important things such as competitor companies.
+    </p>
+  </div>
+</div>
+`;
