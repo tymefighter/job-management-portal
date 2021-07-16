@@ -6,13 +6,7 @@ import { useState, useRef } from "react";
 import * as thunk from "../redux/thunk";
 import BreadCrumb from "../common/BreadCrumb";
 
-import  "../styles/CompanyEditAndAdd.scss";
-
-function mapStateToProps(state: StateType) {
-    return {
-        status: state.companiesStatus
-    };
-}
+import "../styles/CompanyEditAndAdd.scss";
 
 const mapDispatchToProps = {
     addCompany: thunk.addCompany,
@@ -32,7 +26,7 @@ function AddCompany({addCompany}: AddCompanyProps) {
     function submitHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        if(!fileInputRef.current || !fileInputRef.current.files)
+        if(!fileInputRef?.current?.files?.[0])
             return;
         
         const company: types.CompanyUser = {
@@ -81,19 +75,4 @@ function AddCompany({addCompany}: AddCompanyProps) {
     );
 }
 
-interface AddCompanyWithHandlingProps {
-    status: LoadStatus;
-    addCompany: (company: types.CompanyUser) => void;
-};
-
-function AddCompanyWithHandling(
-    {status, addCompany}: AddCompanyWithHandlingProps
-) {
-
-    if(status !== "LOADED") return <div>{status}</div>;
-
-    return <AddCompany addCompany={addCompany} />;
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddCompanyWithHandling);
+export default connect(undefined, mapDispatchToProps)(AddCompany);
