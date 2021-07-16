@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { LoadStatus, StateType } from "../redux/reducer";
 import * as types from "../types";
 import { useHistory } from "react-router-dom";
 import { useState, useRef } from "react";
