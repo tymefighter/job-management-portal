@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 import * as thunk from "../redux/thunk";
 import BreadCrumb from "../common/BreadCrumb";
+import ErrorComponent from "../common/ErrorComponent";
 
 import  "../styles/JobEditAndAdd.scss";
 
@@ -110,7 +111,7 @@ function AddJobWithHandling(
     const { companyId } = useParams<RouteParams>();
 
     const company = companies.find(company => company.id === companyId);
-    if(company === undefined) return <div>Invalid Company</div>;
+    if(company === undefined) return <ErrorComponent message="Invalid Company ID" />;
 
     return <AddJob company={company} addJob={addJob} />;
 }

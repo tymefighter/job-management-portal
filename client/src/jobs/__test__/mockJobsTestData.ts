@@ -45,10 +45,3 @@ export const mockCompanies: types.Company[] = [
         ]
     }
 ];
-
-const mockJobs: types.Job[] = [];
-mockCompanies.forEach(company => {
-    company.jobs.forEach(job => mockJobs.push(job));
-})
-
-export {mockJobs};

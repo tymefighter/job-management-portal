@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
@@ -7,7 +7,7 @@ import Jobs from "../Jobs";
 import { DispatchType } from "../../redux/thunk";
 import { LoadStatus, StateType } from "../../redux/reducer";
 import { Action } from "../../redux/actionCreator";
-import { mockCompanies, mockJobs } from "./mockJobsTestData";
+import { mockCompanies } from "./mockJobsTestData";
 
 jest.mock("../../redux/thunk", () => {
     return {
