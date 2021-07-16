@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobItem snapshot test: JobItem Component Snapshot 1`] = `
+<div>
+  <div
+    class="job-item"
+  >
+    <span
+      class="job-item__span"
+    >
+      This is a job name
+    </span>
+    <span
+      class="job-item__span"
+    >
+      This is a company name
+    </span>
+    <span
+      class="job-item__span"
+    >
+      ₹
+      19384109823748
+    </span>
+  </div>
+</div>
+`;

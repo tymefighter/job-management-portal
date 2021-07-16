@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeItem snapshot test: HomeItem Snapshot 1`] = `
+<div
+  class="home-item these are a few classes which are present"
+>
+  <img
+    alt="This is a name"
+    class="home-item__image"
+    src="/this/is/an/image/url.jpeg"
+  />
+  <h2
+    class="home-item__name"
+  >
+    This is a name
+  </h2>
+  <p
+    class="home-item__desc"
+  >
+    This is a paragraph of text. It is being used as a test
+  </p>
+</div>
+`;
