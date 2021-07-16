@@ -48,7 +48,7 @@ function JobEdit({company, job, editJob, deleteJob}: JobEditProps) {
 
         editJob(company.id, job.id, jobEdit);
 
-        history.push(`/companies/${company.id}/jobs/${job.id}`);
+        history.push(`/companies/${company.id}/jobs/`);
     }
 
     function deleteHandler() {
@@ -82,7 +82,10 @@ function JobEdit({company, job, editJob, deleteJob}: JobEditProps) {
                 <input className="job-edit-form__input"
                     type="number" name="salary" id="salary" 
                     value={salaryInput} 
-                    onChange={(event) => setSalaryInput(parseInt(event.target.value))}
+                    onChange={(event) => {
+                        const value = event.target.value;
+                        setSalaryInput(value === "" ? 0 : parseInt(value))
+                    }}
                 />
 
                 <label className="job-edit-form__label" htmlFor="location">Location</label>
