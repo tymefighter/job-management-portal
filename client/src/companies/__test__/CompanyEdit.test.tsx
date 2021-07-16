@@ -162,5 +162,32 @@ test("test deleting the company", () => {
 });
 
 test("test with invalid company id", () => {
+    const initialState: StateType = {
+        companies: mockCompanies,
+        companiesStatus: "LOADED"
+    };
+    const store = createStore((state: StateType = initialState, action: Action) => state);
 
+    const companyId = "99134901044";
+    const element = (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/companies/:companyId">
+                        <CompanyEdit />
+                    </Route>
+                </Switch>
+                <Link to={`/companies/${companyId}`}>
+                    Click to Edit Company
+                </Link>
+            </BrowserRouter>
+        </Provider>
+    );
+    
+    const {getByText, container} = render(element);
+
+    getByText("Click to Edit Company").click();
+
+    expect(container.textContent).toMatch(/error/i);
+    expect(container.textContent).toMatch(/invalid company id/i);
 });
