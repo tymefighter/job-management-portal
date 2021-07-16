@@ -129,7 +129,7 @@ test("test editing job information", () => {
     expect(jobInState.location).toEqual(jobEdit.location);
     expect(jobInState.description).toEqual(jobEdit.description);
 
-    expect(window.location.pathname).toEqual(`/companies/${companyId}/jobs/`);
+    expect(window.location.pathname).toEqual(`/companies/${companyId}/jobs`);
 });
 
 test("test deleting a job", () => {

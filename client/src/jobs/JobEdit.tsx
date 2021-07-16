@@ -48,12 +48,12 @@ function JobEdit({company, job, editJob, deleteJob}: JobEditProps) {
 
         editJob(company.id, job.id, jobEdit);
 
-        history.push(`/companies/${company.id}/jobs/`);
+        history.push(`/companies/${company.id}/jobs`);
     }
 
     function deleteHandler() {
         deleteJob(company.id, job.id);
-        history.replace(`/companies/${company.id}/jobs/`);
+        history.replace(`/companies/${company.id}/jobs`);
     }
 
     return (
