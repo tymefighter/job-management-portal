@@ -7,7 +7,7 @@ import { applyMiddleware, createStore } from "redux";
 import { StateType } from "../../redux/reducer";
 import thunk from "redux-thunk";
 import { Action } from "../../redux/actionCreator";
-import { editElement } from "../../redux/dataHelper";
+import { deleteElement, editElement } from "../../redux/dataHelper";
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
@@ -108,7 +108,57 @@ test("test editing the company", () => {
 });
 
 test("test deleting the company", () => {
+    const initialState: StateType = {
+        companies: mockCompanies,
+        companiesStatus: "LOADED"
+    };
+    const store = createStore((state: StateType = initialState, action: Action) => {
+        if(action.type === "DELETE_COMPANY_PASSED")
+            return {
+                ...state,
+                companies: deleteElement(
+                    state.companies, 
+                    action.payload
+                )
+            };
+        else return state;
+    }, applyMiddleware(thunk));
 
+    const companyId = "0";
+    const element = (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/companies/:companyId">
+                        <CompanyEdit />
+                    </Route>
+                </Switch>
+                <Link to={`/companies/${companyId}`}>
+                    Click to Edit Company
+                </Link>
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const company = mockCompanies.find(company => company.id === companyId);
+    
+    const {getByText, getByLabelText} = render(element);
+
+    getByText("Click to Edit Company").click();
+
+    const companiesBeforeDelete = store
+        .getState()
+        .companies;
+    expect(companiesBeforeDelete).toContainEqual(company);
+
+    getByLabelText("Delete Company Button").click();
+
+    const companiesAfterDelete = store
+        .getState()
+        .companies;
+    expect(companiesAfterDelete).not.toContainEqual(company);
+
+    expect(window.location.pathname).toEqual(`/companies`);
 });
 
 test("test with invalid company id", () => {
