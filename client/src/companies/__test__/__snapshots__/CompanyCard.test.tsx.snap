@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`company card snapshot test: CompanyCard Component snapshot 1`] = `
+<div>
+  <div
+    class="company-card"
+  >
+    <img
+      alt="This is the company's name"
+      class="company-card__img"
+      src="/this/is/an/image/url.png"
+    />
+    <h2
+      class="company-card__name"
+    >
+      This is the company's name
+    </h2>
+    <p
+      class="company-card__para"
+    >
+      This is the company description
+    </p>
+  </div>
+</div>
+`;
