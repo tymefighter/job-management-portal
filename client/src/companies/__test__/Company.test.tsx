@@ -6,6 +6,10 @@ import { StateType } from "../../redux/reducer";
 import Company from "../Company";
 import { mockCompanies } from "./mockCompaniesTestData";
 
+beforeEach(() => {
+    window.history.pushState(undefined, "", "/");
+})
+
 test("test rendering of company information", () => {
     const initialState: StateType = {
         companies: mockCompanies,
@@ -37,7 +41,44 @@ test("test rendering of company information", () => {
     expect(container.textContent).toContain(company.description);
 });
 
-test("test links for company component", () => {});
+test("test links for company component", () => {
+    const initialState: StateType = {
+        companies: mockCompanies,
+        companiesStatus: "LOADED"
+    };
+    const store = createStore((state: StateType = initialState, action) => state);
+
+    const companyId = "0";
+    const companyPath = `/companies/${companyId}`;
+    const element = (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/companies/:companyId">
+                        <Company />
+                    </Route>
+                </Switch>
+                <Link to={companyPath}>
+                    Click To View Company
+                </Link>
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const {getByLabelText, getByText} = render(element);
+
+    const linkButton = getByText("Click To View Company");
+
+    linkButton.click();
+    expect(window.location.pathname).toEqual(companyPath);
+    getByText(/jobs/i).click();
+    expect(window.location.pathname).toEqual(`/companies/${companyId}/jobs`);
+
+    linkButton.click();
+    expect(window.location.pathname).toEqual(companyPath);
+    getByText(/comments/i).click();
+    expect(window.location.pathname).toEqual(`/companies/${companyId}/comments`);
+});
 
 test("test with wrong company id", () => {
     const initialState: StateType = {
